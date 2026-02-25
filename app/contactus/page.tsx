@@ -53,7 +53,7 @@ export default function Contact() {
     e.preventDefault();
 
     if (validate()) {
-      setSuccess("Your message has been sent successfully!");
+      setSuccess("message has been sent successfully!");
       setForm({ name: "", email: "", message: "" });
     }
   };
