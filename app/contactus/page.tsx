@@ -53,20 +53,20 @@ export default function Contact() {
     e.preventDefault();
 
     if (validate()) {
-      setSuccess("message has been sent successfully!");
+      setSuccess("Message has been sent successfully!");
       setForm({ name: "", email: "", message: "" });
     }
   };
 
   return (
-    <div className="max-w-2xl mx-auto p-8">
+    <div className="max-w-3xl mx-auto p-8">
       <h1 className="text-4xl font-bold text-center mb-8">Contact Us</h1>
 
+      {/* Contact Form */}
       <form
         onSubmit={handleSubmit}
         className="bg-white shadow-lg rounded-xl p-8 space-y-6"
       >
-        {/* Name */}
         <div>
           <label className="block mb-2 font-medium">Full Name</label>
           <input
@@ -81,7 +81,6 @@ export default function Contact() {
           )}
         </div>
 
-        {/* Email */}
         <div>
           <label className="block mb-2 font-medium">Email Address</label>
           <input
@@ -96,7 +95,6 @@ export default function Contact() {
           )}
         </div>
 
-        {/* Message */}
         <div>
           <label className="block mb-2 font-medium">Message</label>
           <textarea
@@ -111,7 +109,6 @@ export default function Contact() {
           )}
         </div>
 
-        {/* Button */}
         <button
           type="submit"
           className="w-full bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700 transition"
@@ -125,9 +122,22 @@ export default function Contact() {
       </form>
 
       {/* Contact Info */}
-      <div className="text-center mt-10 text-gray-600">
-        <p>📞 +91 9714810703</p>
-        <p>📧 hassildevmurari@gmail.com</p>
+      <div className="text-center mt-10 text-gray-700 space-y-2">
+        <p className="text-lg">📞 +91 9979206812</p>
+        <p className="text-lg">📞 +91 7874152686</p>
+        <p className="text-lg">📧 vskconstruction32@gmail.com</p>
+        <p className="text-lg">📍 Gujarat, India</p>
+      </div>
+
+      {/* Google Map */}
+      <div className="mt-10">
+        <iframe
+          src="https://www.google.com/maps?q=Gujarat,India&output=embed"
+          width="100%"
+          height="350"
+          className="rounded-xl shadow-lg border"
+          loading="lazy"
+        ></iframe>
       </div>
     </div>
   );
