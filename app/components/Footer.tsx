@@ -27,7 +27,7 @@ export default function Footer() {
         <div className="flex flex-col items-start">
           <h3 className="text-yellow-500 font-semibold mb-2">Working Hours</h3>
           <p className="text-gray-400 text-sm">
-            We work 7 days a week, every day excluding major holidays.
+            We work 7 days a week, every day excluding major holidays. Contact us if you have an emergency, with our Hotline and Contact form.
           </p>
           <ul className="mt-2 text-gray-400 text-sm space-y-1">
             <li>Monday - Friday: 10:00 - 16:00</li>
@@ -57,7 +57,7 @@ export default function Footer() {
         </div>
       </div>
 
-      {/* Bottom copyright */}
+      {/* Bottom copyright and designed by */}
       <div className="border-t border-gray-700 mt-6 py-4 flex flex-col md:flex-row items-center justify-between text-gray-500 text-sm px-6">
         <p>© {new Date().getFullYear()} VSK Construction. All rights reserved.</p>
         <p className="mt-2 md:mt-0">
@@ -71,6 +71,17 @@ export default function Footer() {
           </Link>
         </p>
       </div>
+
+    <footer className="bg-gray-900 text-gray-300 mt-20 py-8 text-center">
+      <p>📍 Ahmedabad, Gujarat</p>
+      <p>📞 +91 9979206812</p>
+       <p>📞 +91 7874152686</p>
+      <p>📧 vskconstruction32@gmail.com</p>
+      <p className="mt-4 text-sm">
+        © {new Date().getFullYear()} VSK Construction
+      </p>
+
+    </footer>
     </footer>
   );
 }
