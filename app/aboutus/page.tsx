@@ -86,7 +86,7 @@ export default function About() {
     <div className="bg-gray-50 dark:bg-gray-900 text-gray-800 dark:text-white">
 
       {/* ================= Hero Parallax ================= */}
-      <ParallaxSection image="/constructionimg2.png">
+      <ParallaxSection image="/constructionimg4.png">
         <div>
           <h1 className="text-5xl md:text-6xl font-bold text-white mb-4">
             About VSK Construction
@@ -110,7 +110,7 @@ export default function About() {
           </div>
           <div className="rounded-3xl overflow-hidden shadow-2xl">
             <img
-              src="/constructionimg2.png"
+              src="/constructionimg3.png"
               alt="Construction"
               className="w-full h-full object-cover"
             />
@@ -221,7 +221,7 @@ export default function About() {
           </p>
 
           <a
-            href="/contact"
+            href="/contactus"
             className="bg-blue-600 text-white px-8 py-4 rounded-xl text-lg font-semibold hover:bg-blue-700 transition shadow-lg"
           >
             Contact Us

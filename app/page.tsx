@@ -5,10 +5,8 @@ export default function Home() {
     <div>
       {/* Hero Section */}
       <section className="h-screen relative bg-[url('/constructionimg2.png')] bg-cover bg-center">
-        {/* Dark overlay */}
         <div className="absolute inset-0 bg-black/60"></div>
 
-        {/* Content */}
         <div className="relative z-10 flex flex-col items-center justify-center h-full text-center px-4 md:px-0">
           <h1 className="text-5xl md:text-6xl font-bold text-white mb-4">
             Building Strong Foundations
@@ -24,62 +22,135 @@ export default function Home() {
           </Link>
         </div>
 
-        {/* Optional subtle gradient at bottom */}
         <div className="absolute bottom-0 left-0 w-full h-32 bg-gradient-to-t from-black/80 to-transparent"></div>
       </section>
 
+      {/* Why Choose Section */}
       <section className="py-16 bg-gray-100 text-gray-800 px-4 md:px-16">
-  <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-start gap-10">
-    
-    {/* Text Section */}
-    <div className="md:w-1/2 space-y-6">
-      <h2 className="text-3xl font-bold mb-4">Why Choose VSK Construction?</h2>
-      <p>
-        With years of experience in the construction industry, we focus on delivering high-quality projects on time and within budget. Our team of experts ensures every detail is taken care of.
-      </p>
-      <p>
-        Safety, quality, and professionalism are at the heart of everything we do. Whether it's residential or commercial projects, we build with precision and care.
-      </p>
+        <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-start gap-10">
+          
+          <div className="md:w-1/2 space-y-6">
+            <h2 className="text-3xl font-bold mb-4">
+              Why Choose VSK Construction?
+            </h2>
 
-      {/* Features / Key Points */}
-      <ul className="mt-6 space-y-4">
-        <li className="flex items-start gap-3">
-          <span className="text-yellow-500 text-xl">✅</span>
-          <span>
-            <strong>Unmatched Expertise:</strong> Our team of skilled engineers and technicians brings years of hands-on experience in construction and flooring solutions.
-          </span>
-        </li>
-        <li className="flex items-start gap-3">
-          <span className="text-yellow-500 text-xl">✅</span>
-          <span>
-            <strong>Superior Quality & Durability:</strong> We use cutting-edge technology and premium materials to ensure strong, smooth, and long-lasting surfaces.
-          </span>
-        </li>
-        <li className="flex items-start gap-3">
-          <span className="text-yellow-500 text-xl">✅</span>
-          <span>
-            <strong>On-Time Project Completion:</strong> We value your time and guarantee fast, efficient, and hassle-free project execution without compromising quality.
-          </span>
-        </li>
-        <li className="flex items-start gap-3">
-          <span className="text-yellow-500 text-xl">✅</span>
-          <span>
-            <strong>Client-Centric Approach:</strong> Your satisfaction is our priority! We work closely with clients to understand their needs and deliver tailor-made solutions that exceed expectations.
-          </span>
-        </li>
-      </ul>
-    </div>
+            <p>
+              With years of experience in the construction industry, we focus on delivering high-quality projects on time and within budget.
+            </p>
 
-    {/* Image Section */}
-    <div className="md:w-1/2">
-      <img
-        src="/constructionimg1.png"
-        alt="Construction Team"
-        className="rounded-lg shadow-xl transform hover:scale-105 transition-transform duration-500"
-      />
+            <ul className="mt-6 space-y-4">
+              <li className="flex items-start gap-3">
+                <span className="text-yellow-500 text-xl">🏆</span>
+                <span>
+                  <strong>Unmatched Expertise:</strong> Our team of skilled engineers and technicians brings years of 
+                  hands-on experience in construction and flooring solutions.
+                </span>
+              </li>
+
+              <li className="flex items-start gap-3">
+                <span className="text-yellow-500 text-xl">🏆</span>
+                <span>
+                  <strong>Superior Quality:</strong> We use cutting-edge technology and premium materials to ensure 
+                  strong, smooth, and long-lasting surfaces.
+                </span>
+              </li>
+
+              <li className="flex items-start gap-3">
+                <span className="text-yellow-500 text-xl">🏆</span>
+                <span>
+                  <strong>On-Time Completion:</strong>We value your time and guarantee fast, efficient, and 
+                  hassle-free project execution without compromising quality.
+                </span>
+              </li>
+
+              <li className="flex items-start gap-3">
+                <span className="text-yellow-500 text-xl">🏆</span>
+                <span>
+                  <strong>Client-Centric Approach:</strong>Your satisfaction is our priority! We work closely 
+                  with clients to understand their needs and deliver tailor-made solutions that exceed expectations.
+                </span>
+              </li>
+            </ul>
+          </div>
+
+          <div className="md:w-1/2">
+            <img
+              src="/constructionimg1.png"
+              alt="Construction Team"
+              className="rounded-lg shadow-xl transform hover:scale-105 transition-transform duration-500"
+            />
+          </div>
+        </div>
+      </section>
+
+      {/* About Us Section */}
+      <section className="py-20 bg-white px-4 md:px-16">
+        <div className="max-w-6xl mx-auto text-center">
+          <h2 className="text-4xl font-bold mb-6">
+            About Us
+          </h2>
+
+          <h3 className="text-2xl font-semibold text-yellow-500 mb-4">
+            Innovating Construction, Delivering Excellence
+          </h3>
+
+          <p className="text-gray-700 leading-relaxed mb-6">
+            We don’t just build structures — we create lasting foundations.
+            With years of expertise in high-performance flooring, roads,
+            and surface finishing, we specialize in Trimix Flooring,
+            RCC Roads, Laser Finishing, Epoxy Coatings, Groove Cutting,
+            and VDF Finishing.
+          </p>
+
+          <p className="text-gray-700 leading-relaxed">
+            We take pride in our commitment to quality, innovation,
+            and precision, ensuring that every project meets the highest
+            standards of durability and excellence.
+          </p>
+        </div>
+      </section>
+
+      {/* Reputation Section */}
+      <section className="py-16 bg-gray-900 text-white px-4 md:px-16">
+        <div className="max-w-7xl mx-auto text-center">
+          <h2 className="text-3xl font-bold mb-12 text-yellow-500">
+            We've Reputation for Excellence
+          </h2>
+
+          <div className="grid md:grid-cols-4 gap-8">
+            
+            <div className="bg-gray-800 p-8 rounded-xl hover:bg-yellow-500 hover:text-black transition duration-300">
+              <div className="text-5xl mb-4">🏆</div>
+              <h3 className="font-semibold text-lg">
+                Reputation for Excellence
+              </h3>
+            </div>
+
+            <div className="bg-gray-800 p-8 rounded-xl hover:bg-yellow-500 hover:text-black transition duration-300">
+              <div className="text-5xl mb-4">🤝</div>
+              <h3 className="font-semibold text-lg">
+                We Build Partnerships
+              </h3>
+            </div>
+
+            <div className="bg-gray-800 p-8 rounded-xl hover:bg-yellow-500 hover:text-black transition duration-300">
+              <div className="text-5xl mb-4">🎯</div>
+              <h3 className="font-semibold text-lg">
+                Guided by Commitment
+              </h3>
+            </div>
+
+            <div className="bg-gray-800 p-8 rounded-xl hover:bg-yellow-500 hover:text-black transition duration-300">
+              <div className="text-5xl mb-4">👷</div>
+              <h3 className="font-semibold text-lg">
+                A Team of Professionals
+              </h3>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
     </div>
-  </div>
-</section>
-    </div>        
   );
 }
