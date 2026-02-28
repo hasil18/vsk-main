@@ -84,7 +84,7 @@ export default function Contact() {
       className="w-full h-full 
                  bg-contain bg-center bg-no-repeat 
                  md:bg-cover"
-      style={{ backgroundImage: "url('/constructionimg4.png')" }}
+      style={{ backgroundImage: "url('/constructionimg6.png')" }}
     />
   </motion.div>
 

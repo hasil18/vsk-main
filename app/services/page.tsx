@@ -42,7 +42,7 @@ export default function Services() {
     <div className="bg-gray-50 text-gray-800 overflow-x-hidden">
 
       {/* ================= HERO PARALLAX ================= */}
-      <ParallaxSection image="/constructionimg4.png" height="h-screen" >
+      <ParallaxSection image="/constructionimg5.png" height="h-screen" >
         <div className="text-white max-w-3xl mx-auto">
           <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold mb-6 leading-tight">
             Our Services
