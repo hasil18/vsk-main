@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@react-google-maps/api": "^2.20.8",
+    "framer-motion": "^12.34.3",
     "mail": "^0.2.3",
     "next": "16.1.6",
     "nodemailer": "^8.0.1",
