@@ -71,7 +71,7 @@ export async function POST(req: Request) {
 
               <div style="background:#f3f4f6; padding:15px; border-radius:8px; margin:20px 0;">
                 <p><strong>Phone:</strong> ${phone}</p>
-                <p><strong>Your Message:</strong><br/> ${email}</p>
+                <p><strong>Your email:</strong><br/> ${email}</p>
                 <p><strong>Your Message:</strong><br/> ${message}</p>
                 </div>
 
