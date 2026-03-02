@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import {
   motion,
   useScroll,
@@ -34,6 +34,24 @@ export default function Contact() {
 
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState("");
+  const [showTop, setShowTop] = useState(false);
+
+  // 👇 Scroll detection for Go To Top
+  useEffect(() => {
+    const handleScroll = () => {
+      setShowTop(window.scrollY > 400);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  };
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -68,55 +86,46 @@ export default function Contact() {
     <div className="bg-black text-white">
 
       {/* ================= LUXURY HERO ================= */}
-<section
-  ref={heroRef}
-  className="relative h-screen overflow-hidden flex items-center justify-center"
->
-  {/* Moving + Zooming Background */}
-  <motion.div
-    style={{
-      y: imageY,
-      scale,
-    }}
-    className="absolute inset-0"
-  >
-    <div
-      className="w-full h-full 
-                 bg-contain bg-center bg-no-repeat 
-                 md:bg-cover"
-      style={{ backgroundImage: "url('/constructionimg6.png')" }}
-    />
-  </motion.div>
+      <section
+        ref={heroRef}
+        className="relative h-screen overflow-hidden flex items-center justify-center"
+      >
+        <motion.div
+          style={{ y: imageY, scale }}
+          className="absolute inset-0"
+        >
+          <div
+            className="w-full h-full bg-contain bg-center bg-no-repeat md:bg-cover"
+            style={{ backgroundImage: "url('/constructionimg6.png')" }}
+          />
+        </motion.div>
 
-  {/* Premium Dark Gradient Overlay */}
-  <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-black" />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-black" />
 
-  {/* Glassmorphism Content */}
-  <motion.div
-    style={{ y: textY, opacity }}
-    className="relative z-10 text-center backdrop-blur-md bg-white/5 px-6 sm:px-10 py-10 sm:py-12 rounded-3xl border border-white/10 shadow-2xl"
-  >
-    <motion.h1
-      initial={{ letterSpacing: "0px", opacity: 0 }}
-      animate={{ letterSpacing: "2px", opacity: 1 }}
-      transition={{ duration: 1.2 }}
-      className="text-3xl sm:text-5xl md:text-6xl font-light tracking-wide"
-    >
-      Contact VSK Construction
-    </motion.h1>
+        <motion.div
+          style={{ y: textY, opacity }}
+          className="relative z-10 text-center backdrop-blur-md bg-white/5 px-6 sm:px-10 py-10 sm:py-12 rounded-3xl border border-white/10 shadow-2xl"
+        >
+          <motion.h1
+            initial={{ letterSpacing: "0px", opacity: 0 }}
+            animate={{ letterSpacing: "2px", opacity: 1 }}
+            transition={{ duration: 1.2 }}
+            className="text-3xl sm:text-5xl md:text-6xl font-light tracking-wide"
+          >
+            Contact VSK Construction
+          </motion.h1>
 
-    <p className="mt-4 sm:mt-6 text-base sm:text-lg text-gray-300 max-w-xl mx-auto">
-      Precision. Excellence. Innovation.  
-      Let’s build something extraordinary together.
-    </p>
-  </motion.div>
-</section>
+          <p className="mt-4 sm:mt-6 text-base sm:text-lg text-gray-300 max-w-xl mx-auto">
+            Precision. Excellence. Innovation.
+            Let’s build something extraordinary together.
+          </p>
+        </motion.div>
+      </section>
 
       {/* ================= CONTACT SECTION ================= */}
       <div className="py-24 px-6 bg-white text-black">
         <div className="max-w-5xl mx-auto">
 
-          {/* Animated Form Card */}
           <motion.div
             ref={formRef}
             initial={{ opacity: 0, y: 100 }}
@@ -166,21 +175,28 @@ export default function Contact() {
             </form>
           </motion.div>
 
-          {/* Premium Info Section */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            transition={{ duration: 1 }}
-            className="mt-24 text-center space-y-4"
-          >
-            <h3 className="text-2xl font-light">Contact Information</h3>
-            <p>+91 9979206812 | +91 7874152686</p>
-            <p>vskconstruction32@gmail.com</p>
-            <p>Gujarat, India</p>
-          </motion.div>
+        </div>
+      </div>
 
-          {/* Map */}
-          <div className="rounded-3xl overflow-hidden shadow-2xl mt-16">
+      {/* ================= GO TO TOP BUTTON ================= */}
+      {showTop && (
+        <motion.button
+          initial={{ opacity: 0, y: 50 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4 }}
+          onClick={scrollToTop}
+          className="fixed bottom-6 right-6 z-50 
+                     bg-black text-white 
+                     w-12 h-12 rounded-full 
+                     shadow-2xl flex items-center 
+                     justify-center text-xl 
+                     hover:scale-110 transition"
+        >
+          ↑
+        </motion.button>
+      )}
+      {/* Map */}
+          <div className="square-3xl overflow-hidden shadow-2xl mt-0">
             <iframe
               src="https://www.google.com/maps?q=Gujarat,India&output=embed&z=12"
               width="100%"
@@ -190,8 +206,6 @@ export default function Contact() {
             ></iframe>
           </div>
 
-        </div>
-      </div>
     </div>
   );
 }

@@ -30,7 +30,7 @@ function Counter({ target, start }: { target: number; start: boolean }) {
   return <span>{count}+</span>;
 }
 
-/* ================= Scroll Animation Wrapper ================= */
+/* ================= Fade In Section ================= */
 function FadeInSection({ children }: any) {
   const ref = useRef<HTMLDivElement>(null);
   const [isVisible, setVisible] = useState(false);
@@ -60,11 +60,11 @@ function FadeInSection({ children }: any) {
   );
 }
 
-  /* ================= Parallax Section (No Extra Space Fix) ================= */
+/* ================= Parallax Section ================= */
 function ParallaxSection({
   image,
   children,
-  height = "h-screen",
+  height = "h-[60vh] md:h-[70vh]",
 }: {
   image: string;
   children: React.ReactNode;
@@ -72,29 +72,19 @@ function ParallaxSection({
 }) {
   return (
     <section
-      className={`
-        relative
-        w-full
-        bg-center
-        bg-no-repeat
-        bg-contain
-        md:${height}
-        md:bg-cover
-        md:bg-fixed
-      `}
+      className={`relative w-full ${height} bg-cover bg-center bg-no-repeat md:bg-fixed`}
       style={{ backgroundImage: `url(${image})` }}
     >
       <div className="absolute inset-0 bg-black/60"></div>
 
-      <div className="relative z-10 flex items-center justify-center 
-        min-h-[60vh] md:h-full text-center px-6">
+      <div className="relative z-10 flex items-center justify-center h-full text-center px-6">
         {children}
       </div>
     </section>
   );
 }
 
-/* ================= Stats Section (Scroll Activated + Responsive) ================= */
+/* ================= Stats Section ================= */
 function StatsSection() {
   const ref = useRef<HTMLDivElement>(null);
   const [startCount, setStartCount] = useState(false);
@@ -118,7 +108,6 @@ function StatsSection() {
   return (
     <section ref={ref} className="bg-blue-700 text-white py-16 md:py-20">
       <div className="max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-8 text-center px-6">
-
         <div>
           <h3 className="text-4xl md:text-5xl font-bold">
             <Counter target={10} start={startCount} />
@@ -146,7 +135,6 @@ function StatsSection() {
           </h3>
           <p className="mt-2 text-base md:text-lg">Skilled Workers</p>
         </div>
-
       </div>
     </section>
   );
@@ -154,31 +142,47 @@ function StatsSection() {
 
 /* ================= About Page ================= */
 export default function About() {
-  return (
-    <div className="bg-gray-50 dark:bg-gray-900 text-gray-800 dark:text-white overflow-x-hidden">
+  const [showTop, setShowTop] = useState(false);
 
-      {/* ================= Hero Parallax ================= */}
-      <ParallaxSection image="/constructionimg4.png">
-        <div>
-          <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-white mb-4">
+  useEffect(() => {
+    const handleScroll = () => {
+      setShowTop(window.scrollY > 400);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
+  return (
+    <div>
+
+      {/* Hero Section */}
+      <section className="h-screen relative bg-[url('/constructionimg4.png')] bg-cover bg-center">
+        <div className="absolute inset-0 bg-black/60"></div>
+
+        <div className="relative z-10 flex flex-col items-center justify-center h-full text-center px-4">
+          <h1 className="text-5xl md:text-6xl font-bold text-white mb-4">
             About VSK Construction
           </h1>
-          <p className="text-base sm:text-lg md:text-2xl text-gray-200 max-w-2xl mx-auto">
+          <p className="text-lg md:text-2xl text-gray-200 max-w-2xl">
             Building trust through quality construction services across Gujarat.
           </p>
         </div>
-      </ParallaxSection>
+      </section>
 
-      {/* ================= Company Introduction ================= */}
+      {/* Company Introduction */}
       <FadeInSection>
-        <section className="max-w-6xl mx-auto py-16 md:py-20 px-6 grid md:grid-cols-2 gap-12 items-center">
+        <section className="max-w-6xl mx-auto py-16 px-6 grid md:grid-cols-2 gap-12 items-center">
           <div>
-            <h2 className="text-2xl md:text-3xl font-bold mb-6">Who We Are</h2>
-            <p className="text-base md:text-lg text-gray-600 dark:text-gray-300 leading-relaxed">
+            <h2 className="text-3xl font-bold mb-6">Who We Are</h2>
+            <p className="text-lg text-gray-600 leading-relaxed">
               VSK Construction is a trusted construction company in Gujarat,
               delivering premium residential and commercial projects with
-              commitment, quality, and excellence. We focus on strong
-              foundations, modern design, and customer satisfaction.
+              commitment, quality, and excellence.
             </p>
           </div>
           <div className="rounded-3xl overflow-hidden shadow-2xl">
@@ -191,85 +195,75 @@ export default function About() {
         </section>
       </FadeInSection>
 
-      {/* ================= Timeline Section ================= */}
+      {/* Timeline */}
       <FadeInSection>
-        <section className="bg-white dark:bg-gray-800 py-16 md:py-20 px-6">
-          <h2 className="text-2xl md:text-3xl font-bold text-center mb-16">
+        <section className="py-16 px-6 bg-gray-100">
+          <h2 className="text-3xl font-bold text-center mb-12">
             Our Journey
           </h2>
 
-          <div className="relative max-w-4xl mx-auto">
-            <div className="hidden md:block absolute left-1/2 transform -translate-x-1/2 w-1 bg-blue-600 h-full"></div>
-
+          <div className="max-w-3xl mx-auto space-y-8">
             {[
               { year: "2014", text: "Company Founded in Gujarat." },
-              { year: "2016", text: "Completed First Major Residential Project." },
+              { year: "2016", text: "First Major Residential Project." },
               { year: "2019", text: "Expanded to Commercial Construction." },
-              { year: "2022", text: "Achieved 100+ Successful Projects." },
-              { year: "2024", text: "Recognized for Quality & Excellence." },
+              { year: "2022", text: "100+ Successful Projects." },
+              { year: "2024", text: "Recognized for Quality Excellence." },
             ].map((item, index) => (
-              <div
-                key={index}
-                className={`mb-12 flex w-full ${
-                  index % 2 === 0
-                    ? "md:justify-start justify-center"
-                    : "md:justify-end justify-center"
-                }`}
-              >
-                <div className="md:w-1/2 w-full px-4">
-                  <div className="bg-gray-100 dark:bg-gray-700 p-6 rounded-2xl shadow-lg">
-                    <h3 className="text-lg md:text-xl font-bold text-blue-600 mb-2">
-                      {item.year}
-                    </h3>
-                    <p className="text-sm md:text-base text-gray-600 dark:text-gray-300">
-                      {item.text}
-                    </p>
-                  </div>
-                </div>
+              <div key={index} className="bg-white p-6 rounded-2xl shadow-md">
+                <h3 className="text-xl font-bold text-blue-600 mb-2">
+                  {item.year}
+                </h3>
+                <p className="text-gray-600">{item.text}</p>
               </div>
             ))}
           </div>
         </section>
       </FadeInSection>
 
-      {/* ================= Founder Section ================= */}
-      <ParallaxSection image="/ceo.jpg" height="h-[60vh] md:h-[70vh]">
+      {/* Founder Section */}
+      <ParallaxSection image="/ceo.jpg">
         <div className="max-w-3xl text-white">
-          <h2 className="text-2xl md:text-4xl font-bold mb-4">
+          <h2 className="text-3xl md:text-4xl font-bold mb-4">
             Message From Our Founder
           </h2>
-          <h3 className="text-lg md:text-xl font-semibold text-blue-300 mb-4">
-            Mr. Founder Name
-          </h3>
-          <p className="text-base md:text-lg leading-relaxed">
-            At VSK Construction, we believe construction is not just about
-            buildings — it’s about building trust, quality, and long-term
-            relationships with our clients.
+          <p className="text-lg leading-relaxed">
+            We believe construction is about building trust, quality,
+            and long-term relationships.
           </p>
         </div>
       </ParallaxSection>
 
-      {/* ================= Animated Stats Section ================= */}
+      {/* Stats */}
       <StatsSection />
 
-      {/* ================= CTA ================= */}
-      <FadeInSection>
-        <section className="py-16 md:py-20 text-center bg-gray-100 dark:bg-gray-800 px-6">
-          <h2 className="text-2xl md:text-3xl font-bold mb-6">
-            Let’s Build Your Dream Project
-          </h2>
-          <p className="mb-8 text-base md:text-lg text-gray-600 dark:text-gray-300">
-            Contact us today and start building your future with VSK Construction.
-          </p>
+      {/* CTA */}
+      <section className="py-16 text-center bg-gray-100 px-6">
+        <h2 className="text-3xl font-bold mb-6">
+          Let’s Build Your Dream Project
+        </h2>
+        <a
+          href="/contactus"
+          className="inline-block bg-blue-600 text-white px-8 py-4 rounded-xl font-semibold hover:bg-blue-700 transition shadow-lg"
+        >
+          Contact Us
+        </a>
+      </section>
 
-          <a
-            href="/contactus"
-            className="inline-block bg-blue-600 text-white px-8 py-4 rounded-xl text-base md:text-lg font-semibold hover:bg-blue-700 transition shadow-lg"
-          >
-            Contact Us
-          </a>
-        </section>
-      </FadeInSection>
+      {/* GO TO TOP BUTTON */}
+      {showTop && (
+        <button
+          onClick={scrollToTop}
+          className="fixed bottom-6 right-6 z-50 
+                     bg-blue-600 hover:bg-blue-700 
+                     text-white w-12 h-12 
+                     rounded-full shadow-xl 
+                     flex items-center justify-center 
+                     transition duration-300"
+        >
+          ↑
+        </button>
+      )}
 
     </div>
   );
