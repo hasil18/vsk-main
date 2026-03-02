@@ -4,10 +4,8 @@ import React, { useState, useEffect } from "react";
 import Link from "next/link";
 
 export default function Home() {
-
   const [showTop, setShowTop] = useState(false);
 
-  // Detect scroll
   useEffect(() => {
     const handleScroll = () => {
       setShowTop(window.scrollY > 400);
@@ -18,90 +16,63 @@ export default function Home() {
   }, []);
 
   const scrollToTop = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    });
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   return (
     <div>
-
       {/* Hero Section */}
       <section className="h-screen relative bg-[url('/constructionimg2.png')] bg-cover bg-center">
         <div className="absolute inset-0 bg-black/60"></div>
 
-        <div className="relative z-10 flex flex-col items-center justify-center h-full text-center px-4 md:px-0">
-          <h1 className="text-5xl md:text-6xl font-bold text-white mb-4">
+        <div className="relative z-10 flex flex-col items-center justify-center h-full text-center px-4">
+          <h1 className="text-5xl md:text-6xl font-bold text-white mb-4 animate-fadeIn">
             Building Strong Foundations
           </h1>
-          <p className="text-lg md:text-2xl text-gray-200 mb-6 max-w-2xl">
+          <p className="text-lg md:text-2xl text-gray-200 mb-6 max-w-2xl animate-fadeIn delay-200">
             We provide top-notch construction services with quality and reliability you can trust.
           </p>
           <Link
             href="/contactus"
-            className="bg-yellow-500 text-black px-8 py-4 rounded-lg font-semibold hover:bg-yellow-400 transition-colors duration-300"
+            className="bg-yellow-500 text-black px-8 py-4 rounded-lg font-semibold hover:bg-yellow-400 transition duration-300 animate-fadeIn delay-300"
           >
             Contact Us
           </Link>
-        </div>
-
-        <div className="absolute bottom-0 left-0 w-full h-32 bg-gradient-to-t from-black/80 to-transparent"></div>
-      </section>
-
-      {/* Why Choose Section */}
-      <section className="py-16 bg-gray-100 text-gray-800 px-4 md:px-16">
-        <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-start gap-10">
-          <div className="md:w-1/2 space-y-6">
-            <h2 className="text-3xl font-bold mb-4">
-              Why Choose VSK Construction?
-            </h2>
-            <p>
-              With years of experience in the construction industry, we focus on delivering high-quality projects on time and within budget.
-            </p>
-
-            <ul className="mt-6 space-y-4">
-              {[
-                "Unmatched Expertise",
-                "Superior Quality",
-                "On-Time Completion",
-                "Client-Centric Approach",
-              ].map((item, index) => (
-                <li key={index} className="flex items-start gap-3">
-                  <span className="text-yellow-500 text-xl">🏆</span>
-                  <span>
-                    <strong>{item}:</strong> We ensure professional service and outstanding results.
-                  </span>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          <div className="md:w-1/2">
-            <img
-              src="/constructionimg1.png"
-              alt="Construction Team"
-              className="rounded-lg shadow-xl transform hover:scale-105 transition-transform duration-500"
-            />
-          </div>
         </div>
       </section>
 
       {/* About Section */}
       <section className="py-20 bg-white px-4 md:px-16">
-        <div className="max-w-6xl mx-auto text-center">
-          <h2 className="text-4xl font-bold mb-6">About Us</h2>
-          <h3 className="text-2xl font-semibold text-yellow-500 mb-4">
-            Innovating Construction, Delivering Excellence
-          </h3>
-          <p className="text-gray-700 leading-relaxed mb-6">
-            We don’t just build structures — we create lasting foundations.
-            With expertise in Trimix Flooring, RCC Roads, Laser Finishing,
-            Epoxy Coatings, Groove Cutting, and VDF Finishing.
-          </p>
-          <p className="text-gray-700 leading-relaxed">
-            We are committed to quality, innovation, and precision in every project.
-          </p>
+        <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-12 items-center">
+          
+          {/* Left Content */}
+          <div className="animate-slideUp">
+            <h2 className="text-4xl font-bold mb-4">About Us</h2>
+            <h3 className="text-2xl font-semibold text-yellow-500 mb-6">
+              Innovating Construction, Delivering Excellence
+            </h3>
+
+            <p className="text-gray-700 leading-relaxed text-lg">
+              We don’t just build structures—we create lasting foundations.
+              With years of expertise in high-performance flooring, roads,
+              and surface finishing.
+            </p>
+
+            <p className="text-gray-700 leading-relaxed text-lg mt-4">
+              We specialize in Trimix Flooring, RCC Roads, Laser Finishing,
+              Epoxy Coatings, Groove Cutting, and VDF Finishing. We deliver
+              solutions that are built to last.
+            </p>
+          </div>
+
+          {/* Right Image */}
+          <div className="animate-slideUp delay-200">
+            <img
+              src="/constructionimg1.png"
+              alt="About Construction"
+              className="rounded-xl shadow-2xl hover:scale-105 transition duration-500"
+            />
+          </div>
         </div>
       </section>
 
@@ -111,13 +82,12 @@ export default function Home() {
           <h2 className="text-3xl font-bold mb-12 text-yellow-500">
             We've Reputation for Excellence
           </h2>
-          <div className="grid md:grid-cols-4 gap-8">
-            {["🏆", "🤝", "🎯", "👷"].map((emoji, index) => (
-              <div key={index} className="bg-gray-800 p-8 rounded-xl hover:bg-yellow-500 hover:text-black transition duration-300">
-                <div className="text-5xl mb-4">{emoji}</div>
-                <h3 className="font-semibold text-lg">Professional Service</h3>
-              </div>
-            ))}
+
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+            <ReputationCard icon="🏆" title="Reputation for Excellence" />
+            <ReputationCard icon="🤝" title="We Build Partnerships" />
+            <ReputationCard icon="🎯" title="Guided by Commitment" />
+            <ReputationCard icon="👷" title="A Team of Professionals" />
           </div>
         </div>
       </section>
@@ -138,71 +108,59 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Counter Section */}
-      <section className="py-20 bg-gray-100 px-4 md:px-16">
-        <div className="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-8">
-          <CounterCard number={1500} label="Total Projects" />
-          <CounterCard number={70} label="Staff Members" />
-          <CounterCard number={1450} label="On Time Projects" />
-          <CounterCard number={25} label="City Experience" />
+      {/* Happy Clients */}
+      <section className="py-20 bg-white px-4 md:px-16">
+        <div className="max-w-7xl mx-auto text-center mb-16">
+          <h2 className="text-4xl font-bold text-gray-800">Happy Clients</h2>
+        </div>
+
+        <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-10">
+          <ClientCard image="/happyclient1.png" />
+          <ClientCard image="/happyclient2.png" />
+          <ClientCard image="/happyclient3.png" />
+          <ClientCard image="/happyclient4.png" />
+          <ClientCard image="/happyclient5.png" />
+          <ClientCard image="/happyclient6.png" />
         </div>
       </section>
 
-      {/* GO TO TOP BUTTON */}
       {showTop && (
         <button
           onClick={scrollToTop}
-          className="fixed bottom-6 right-6 z-50 
-                     bg-yellow-500 hover:bg-yellow-400 
-                     text-black w-12 h-12 
-                     rounded-full shadow-2xl 
-                     flex items-center justify-center 
-                     text-xl font-bold
-                     transition-all duration-300"
+          className="fixed bottom-6 right-6 bg-yellow-500 hover:bg-yellow-400 text-black w-12 h-12 rounded-full shadow-2xl flex items-center justify-center transition duration-300"
         >
           ^
         </button>
       )}
-
     </div>
   );
 }
 
-/* ---------------- Service Card ---------------- */
+/* Reputation Card */
+function ReputationCard({ icon, title }: { icon: string; title: string }) {
+  return (
+    <div className="bg-gray-800 p-8 rounded-xl hover:bg-yellow-500 hover:text-black transition duration-300 text-center transform hover:-translate-y-2">
+      <div className="text-4xl mb-4">{icon}</div>
+      <h3 className="font-semibold text-lg">{title}</h3>
+    </div>
+  );
+}
+
+/* Service Card */
 function ServiceCard({ emoji, title }: { emoji: string; title: string }) {
   return (
-    <div className="bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl transition duration-300 text-center">
+    <div className="bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl transition duration-300 text-center transform hover:-translate-y-2">
       <div className="text-5xl mb-4 text-yellow-500">{emoji}</div>
       <h3 className="text-xl font-bold">{title}</h3>
     </div>
   );
 }
 
-/* ---------------- Counter Card ---------------- */
-function CounterCard({ number, label }: { number: number; label: string }) {
-  const [count, setCount] = useState(0);
-
-  useEffect(() => {
-    let start = 0;
-    const duration = 2000;
-    const increment = number / (duration / 16);
-
-    const timer = setInterval(() => {
-      start += increment;
-      if (start >= number) {
-        start = number;
-        clearInterval(timer);
-      }
-      setCount(Math.floor(start));
-    }, 16);
-
-    return () => clearInterval(timer);
-  }, [number]);
-
+/* Client Card */
+function ClientCard({ image }: { image: string }) {
   return (
-    <div className="bg-white rounded-xl shadow-lg p-8 text-center hover:shadow-2xl transition duration-300">
-      <h3 className="text-4xl font-bold text-yellow-500">{count}+</h3>
-      <p className="text-gray-700 font-semibold mt-2">{label}</p>
+    <div className="bg-gray-100 p-6 rounded-xl shadow-lg hover:shadow-2xl transition duration-300 flex items-center justify-center transform hover:-translate-y-2">
+      <img src={image} alt="Client Logo" className="h-24 object-contain" />
     </div>
   );
 }
