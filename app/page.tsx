@@ -26,15 +26,15 @@ export default function Home() {
         <div className="absolute inset-0 bg-black/60"></div>
 
         <div className="relative z-10 flex flex-col items-center justify-center h-full text-center px-4">
-          <h1 className="text-5xl md:text-6xl font-bold text-white mb-4 animate-fadeIn">
+          <h1 className="text-5xl md:text-6xl font-bold text-white mb-4">
             Building Strong Foundations
           </h1>
-          <p className="text-lg md:text-2xl text-gray-200 mb-6 max-w-2xl animate-fadeIn delay-200">
+          <p className="text-lg md:text-2xl text-gray-200 mb-6 max-w-2xl">
             We provide top-notch construction services with quality and reliability you can trust.
           </p>
           <Link
             href="/contactus"
-            className="bg-yellow-500 text-black px-8 py-4 rounded-lg font-semibold hover:bg-yellow-400 transition duration-300 animate-fadeIn delay-300"
+            className="bg-yellow-500 text-black px-8 py-4 rounded-lg font-semibold hover:bg-yellow-400 transition duration-300"
           >
             Contact Us
           </Link>
@@ -44,9 +44,7 @@ export default function Home() {
       {/* About Section */}
       <section className="py-20 bg-white px-4 md:px-16">
         <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-12 items-center">
-          
-          {/* Left Content */}
-          <div className="animate-slideUp">
+          <div>
             <h2 className="text-4xl font-bold mb-4">About Us</h2>
             <h3 className="text-2xl font-semibold text-yellow-500 mb-6">
               Innovating Construction, Delivering Excellence
@@ -65,8 +63,7 @@ export default function Home() {
             </p>
           </div>
 
-          {/* Right Image */}
-          <div className="animate-slideUp delay-200">
+          <div>
             <img
               src="/constructionimg1.png"
               alt="About Construction"
@@ -108,6 +105,38 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Why Choose Us */}
+      <section className="py-20 bg-gray-100 px-4 md:px-16">
+        <div className="max-w-7xl mx-auto text-center mb-16">
+          <h2 className="text-4xl font-bold text-gray-800">
+            Why Choose Us?
+          </h2>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <WhyCard
+            icon="🏆"
+            title="Unmatched Expertise"
+            description="Our team of skilled engineers and technicians brings years of hands-on experience in construction and flooring solutions."
+          />
+          <WhyCard
+            icon="🛡️"
+            title="Superior Quality & Durability"
+            description="We use cutting-edge technology and premium materials to ensure strong, smooth, and long-lasting surfaces."
+          />
+          <WhyCard
+            icon="⏱️"
+            title="On-Time Project Completion"
+            description="We value your time and guarantee fast, efficient, and hassle-free project execution without compromising quality."
+          />
+          <WhyCard
+            icon="🤝"
+            title="Client-Centric Approach"
+            description="Your satisfaction is our priority! We work closely with clients to understand their needs and deliver tailor-made solutions that exceed expectations."
+          />
+        </div>
+      </section>
+
       {/* Happy Clients */}
       <section className="py-20 bg-white px-4 md:px-16">
         <div className="max-w-7xl mx-auto text-center mb-16">
@@ -136,7 +165,8 @@ export default function Home() {
   );
 }
 
-/* Reputation Card */
+/* Components */
+
 function ReputationCard({ icon, title }: { icon: string; title: string }) {
   return (
     <div className="bg-gray-800 p-8 rounded-xl hover:bg-yellow-500 hover:text-black transition duration-300 text-center transform hover:-translate-y-2">
@@ -146,7 +176,6 @@ function ReputationCard({ icon, title }: { icon: string; title: string }) {
   );
 }
 
-/* Service Card */
 function ServiceCard({ emoji, title }: { emoji: string; title: string }) {
   return (
     <div className="bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl transition duration-300 text-center transform hover:-translate-y-2">
@@ -156,7 +185,24 @@ function ServiceCard({ emoji, title }: { emoji: string; title: string }) {
   );
 }
 
-/* Client Card */
+function WhyCard({
+  icon,
+  title,
+  description,
+}: {
+  icon: string;
+  title: string;
+  description: string;
+}) {
+  return (
+    <div className="bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl transition duration-500 transform hover:-translate-y-3 text-center">
+      <div className="text-5xl mb-4 text-yellow-500">{icon}</div>
+      <h3 className="text-xl font-bold mb-4">{title}</h3>
+      <p className="text-gray-600 leading-relaxed">{description}</p>
+    </div>
+  );
+}
+
 function ClientCard({ image }: { image: string }) {
   return (
     <div className="bg-gray-100 p-6 rounded-xl shadow-lg hover:shadow-2xl transition duration-300 flex items-center justify-center transform hover:-translate-y-2">
