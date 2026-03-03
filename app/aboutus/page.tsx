@@ -72,7 +72,7 @@ function ParallaxSection({
 }) {
   return (
     <section
-      className={`relative w-full ${height} bg-cover bg-center bg-no-repeat md:bg-fixed`}
+      className={`relative w-full ${height} bg-contain bg-center bg-no-repeat md:bg-fixed`}
       style={{ backgroundImage: `url(${image})` }}
     >
       <div className="absolute inset-0 bg-black/60"></div>
@@ -161,18 +161,19 @@ export default function About() {
     <div>
 
       {/* Hero Section */}
-      <section className="h-screen relative bg-[url('/constructionimg4.png')] bg-cover bg-center">
-        <div className="absolute inset-0 bg-black/60"></div>
+<section className="h-screen relative bg-[url('/constructionimg4.png')] bg-cover bg-center">
+  <div className="absolute inset-0 bg-black/60"></div>
 
-        <div className="relative z-10 flex flex-col items-center justify-center h-full text-center px-4">
-          <h1 className="text-5xl md:text-6xl font-bold text-white mb-4">
-            About VSK Construction
-          </h1>
-          <p className="text-lg md:text-2xl text-gray-200 max-w-2xl">
-            Building trust through quality construction services across Gujarat.
-          </p>
-        </div>
-      </section>
+  <div className="relative z-10 flex flex-col items-center justify-center h-full text-center px-4">
+    <h1 className="text-5xl md:text-6xl font-bold text-white mb-4">
+      About VSK Construction
+    </h1>
+    <p className="text-lg md:text-2xl text-gray-200 max-w-2xl">
+      Building trust through quality construction services across Gujarat.
+    </p>
+  </div>
+</section>
+  );
 
       {/* Company Introduction */}
       <FadeInSection>

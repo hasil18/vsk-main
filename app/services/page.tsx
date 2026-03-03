@@ -15,7 +15,7 @@ function ParallaxSection({
 }) {
   return (
     <section
-      className={`relative w-full ${height} bg-cover bg-center bg-no-repeat md:bg-fixed`}
+      className={`relative w-full ${height} bg-contain bg-center bg-no-repeat md:bg-fixed`}
       style={{ backgroundImage: `url(${image})` }}
     >
       <div className="absolute inset-0 bg-black/60" />

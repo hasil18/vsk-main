@@ -18,13 +18,14 @@ export default function Header() {
 
   return (
     <header className="bg-black text-white fixed w-full z-50 shadow-lg">
-      <div className="max-w-7xl mx-auto flex items-center justify-between px-6 py-4">
+   <div className="max-w-auto mx-auto flex items-center justify-between px-6 py-4">
 
        {/* Logo Left */}
 <div className="flex items-center flex-shrink-0">
   <Image
     src="/vsklogo.png"   // logo inside public folder
     alt="VSK Logo"
+    
     width={150}
     height={60}
     priority

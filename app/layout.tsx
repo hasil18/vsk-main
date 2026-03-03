@@ -15,18 +15,11 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className="flex flex-col mix-h-screen">
+      <body className="flex flex-col min-h-screen">
         <Header />
         <main className="flex-grow pt-20">{children}</main>
         <Footer />
-       <body className="
-  overflow-x-hidden
-  max-md:[&_.bg-\[url\(\'\/constructionimg4\.png\'\)\]]:bg-contain
-  max-md:[&_.bg-\[url\(\'\/constructionimg4\.png\'\)\]]:bg-no-repeat
-">
-  {children}
-</body>
-
+        
       </body>
     </html>
   );
