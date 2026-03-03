@@ -18,29 +18,30 @@ export default function Header() {
 
   return (
     <header className="bg-black text-white fixed w-full z-50 shadow-lg">
-   <div className="max-w-auto mx-auto flex items-center justify-between px-6 py-4">
+      <div className="max-w-7xl mx-auto flex items-center justify-between px-6 py-4">
 
-       {/* Logo Left */}
-<div className="flex items-center flex-shrink-0">
-  <Image
-    src="/vsklogo.png"   // logo inside public folder
-    alt="VSK Logo"
-    
-    width={150}
-    height={60}
-    priority
-    className="block"   // ensures it's treated as a block element (no underline)
-  />
-</div>
+        {/* Logo */}
+        <div className="flex items-center flex-shrink-0">
+          <Image
+            src="/vsklogo.png"
+            alt="VSK Logo"
+            width={150}
+            height={60}
+            priority
+            className="block"
+          />
+        </div>
 
         {/* Desktop Navigation */}
-        <nav className="hidden md:flex gap-8 items-center">
+        <nav className="hidden md:flex gap-10 items-center">
           {navLinks.map((link) => (
             <Link
               key={link.path}
               href={link.path}
-              className={`relative text-white font-medium transition-colors duration-300 hover:text-yellow-500 ${
-                pathname === link.path ? "text-yellow-500 font-semibold" : ""
+              className={`text-lg lg:text-xl font-semibold tracking-wide transition-colors duration-300 hover:text-yellow-500 ${
+                pathname === link.path
+                  ? "text-yellow-500"
+                  : "text-white"
               }`}
             >
               {link.name}
@@ -48,28 +49,30 @@ export default function Header() {
           ))}
         </nav>
 
-        {/* Hamburger Menu Button */}
+        {/* Hamburger Button */}
         <div className="md:hidden">
           <button
             onClick={() => setIsOpen(!isOpen)}
             className="focus:outline-none"
           >
-            <div className="w-6 h-0.5 bg-white mb-1"></div>
-            <div className="w-6 h-0.5 bg-white mb-1"></div>
-            <div className="w-6 h-0.5 bg-white"></div>
+            <div className="w-7 h-0.5 bg-white mb-1.5"></div>
+            <div className="w-7 h-0.5 bg-white mb-1.5"></div>
+            <div className="w-7 h-0.5 bg-white"></div>
           </button>
         </div>
       </div>
 
       {/* Mobile Menu */}
       {isOpen && (
-        <nav className="md:hidden bg-black px-6 py-4 flex flex-col gap-4">
+        <nav className="md:hidden bg-black px-6 py-6 flex flex-col gap-6 text-center">
           {navLinks.map((link) => (
             <Link
               key={link.path}
               href={link.path}
-              className={`text-white font-medium transition-colors duration-300 hover:text-yellow-500 ${
-                pathname === link.path ? "text-yellow-500 font-semibold" : ""
+              className={`text-lg font-semibold transition-colors duration-300 hover:text-yellow-500 ${
+                pathname === link.path
+                  ? "text-yellow-500"
+                  : "text-white"
               }`}
               onClick={() => setIsOpen(false)}
             >
