@@ -56,7 +56,7 @@ export default function Services() {
                           rounded-3xl border border-white/10 shadow-2xl
                           w-full max-w-xl">
             <h1 className="text-3xl sm:text-5xl md:text-6xl font-light tracking-wide">
-              Our Services
+              Our services
             </h1>
 
             <p className="mt-4 sm:mt-6 text-base sm:text-lg text-gray-300">
