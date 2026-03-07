@@ -30,60 +30,6 @@ function Counter({ target, start }: { target: number; start: boolean }) {
   return <span>{count}+</span>;
 }
 
-/* ================= Fade In Section ================= */
-function FadeInSection({ children }: any) {
-  const ref = useRef<HTMLDivElement>(null);
-  const [isVisible, setVisible] = useState(false);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => setVisible(entry.isIntersecting),
-      { threshold: 0.2 }
-    );
-
-    if (ref.current) observer.observe(ref.current);
-
-    return () => {
-      if (ref.current) observer.unobserve(ref.current);
-    };
-  }, []);
-
-  return (
-    <div
-      ref={ref}
-      className={`transition-all duration-1000 transform ${
-        isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
-      }`}
-    >
-      {children}
-    </div>
-  );
-}
-
-/* ================= Parallax Section ================= */
-function ParallaxSection({
-  image,
-  children,
-  height = "h-[60vh] md:h-[70vh]",
-}: {
-  image: string;
-  children: React.ReactNode;
-  height?: string;
-}) {
-  return (
-    <section
-      className={`relative w-full ${height} bg-contain bg-center bg-no-repeat md:bg-fixed`}
-      style={{ backgroundImage: `url(${image})` }}
-    >
-      <div className="absolute inset-0 bg-black/60"></div>
-
-      <div className="relative z-10 flex items-center justify-center h-full text-center px-6">
-        {children}
-      </div>
-    </section>
-  );
-}
-
 /* ================= Stats Section ================= */
 function StatsSection() {
   const ref = useRef<HTMLDivElement>(null);
@@ -106,49 +52,49 @@ function StatsSection() {
   }, []);
 
   return (
-    <section ref={ref} className="bg-blue-700 text-white py-16 md:py-20">
+    <section ref={ref} className="bg-blue-700 text-white py-16">
       <div className="max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-8 text-center px-6">
+
         <div>
-          <h3 className="text-4xl md:text-5xl font-bold">
-            <Counter target={10} start={startCount} />
+          <h3 className="text-3xl md:text-5xl font-bold">
+            <Counter target={1500} start={startCount} />
           </h3>
-          <p className="mt-2 text-base md:text-lg">Years Experience</p>
+          <p className="mt-2">Total Projects</p>
         </div>
 
         <div>
-          <h3 className="text-4xl md:text-5xl font-bold">
+          <h3 className="text-3xl md:text-5xl font-bold">
             <Counter target={150} start={startCount} />
           </h3>
-          <p className="mt-2 text-base md:text-lg">Projects Completed</p>
+          <p className="mt-2">Staff Members</p>
         </div>
 
         <div>
-          <h3 className="text-4xl md:text-5xl font-bold">
+          <h3 className="text-3xl md:text-5xl font-bold">
             <Counter target={100} start={startCount} />
           </h3>
-          <p className="mt-2 text-base md:text-lg">Client Satisfaction</p>
+          <p className="mt-2">Client Satisfaction</p>
         </div>
 
         <div>
-          <h3 className="text-4xl md:text-5xl font-bold">
+          <h3 className="text-3xl md:text-5xl font-bold">
             <Counter target={50} start={startCount} />
           </h3>
-          <p className="mt-2 text-base md:text-lg">Skilled Workers</p>
+          <p className="mt-2">Skilled Workers</p>
         </div>
+
       </div>
     </section>
   );
 }
 
-/* ================= About Page ================= */
+/* ================= MAIN PAGE ================= */
 export default function About() {
+
   const [showTop, setShowTop] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => {
-      setShowTop(window.scrollY > 400);
-    };
-
+    const handleScroll = () => setShowTop(window.scrollY > 400);
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
@@ -160,107 +106,468 @@ export default function About() {
   return (
     <div>
 
-      {/* Hero Section */}
-<section className="h-screen relative bg-[url('/constructionimg4.png')] bg-cover bg-center">
-  <div className="absolute inset-0 bg-black/60"></div>
+      {/* ================= MOBILE VERSION ================= */}
+      <div className="md:hidden w-full overflow-hidden">
 
-  <div className="relative z-10 flex flex-col items-center justify-center h-full text-center px-4">
-    <h1 className="text-5xl md:text-6xl font-bold text-white mb-4">
-      About VSK Construction
-    </h1>
-    <p className="text-lg md:text-2xl text-gray-200 max-w-2xl">
-      Building trust through quality construction services across Gujarat.
-    </p>
-  </div>
-</section>
-  );
+        {/* HERO */}
+        <section className="relative text-center">
 
-      {/* Company Introduction */}
-      <FadeInSection>
-        <section className="max-w-6xl mx-auto py-16 px-6 grid md:grid-cols-2 gap-12 items-center">
-          <div>
-            <h2 className="text-3xl font-bold mb-6">Who We Are</h2>
-            <p className="text-lg text-gray-600 leading-relaxed">
-              VSK Construction is a trusted construction company in Gujarat,
-              delivering premium residential and commercial projects with
-              commitment, quality, and excellence.
+          <img
+            src="/constructionimg4.png"
+            alt="construction"
+            className="w-full h-auto"
+          />
+
+          <div className="absolute inset-0 bg-black/60"></div>
+
+          <div className="absolute inset-0 flex flex-col items-center justify-center px-6">
+            <h1 className="text-3xl font-bold text-white mb-3">
+              About VSK Construction
+            </h1>
+
+            <p className="text-sm text-gray-200">
+              Building trust with quality construction services across Gujarat.
             </p>
           </div>
-          <div className="rounded-3xl overflow-hidden shadow-2xl">
-            <img
-              src="/constructionimg3.png"
-              alt="Construction"
-              className="w-full h-full object-cover"
-            />
-          </div>
-        </section>
-      </FadeInSection>
 
-      {/* Timeline */}
-      <FadeInSection>
-        <section className="py-16 px-6 bg-gray-100">
-          <h2 className="text-3xl font-bold text-center mb-12">
+        </section>
+
+       {/* ================= COMPANY INTRO ================= */}
+<section className="max-w-7xl mx-auto py-20 px-6 grid md:grid-cols-2 gap-14 items-center">
+
+  {/* TEXT SIDE */}
+  <div>
+
+    <h2 className="text-4xl font-bold mb-6 text-gray-900">
+      Who We Are
+    </h2>
+
+    <p className="text-gray-600 text-lg leading-relaxed mb-8">
+      We are specialists in <span className="text-blue-600 font-semibold">high-quality concrete flooring</span> 
+      and <span className="text-blue-600 font-semibold">road construction solutions</span>.  
+      With a commitment to durability, precision and excellence, we deliver
+      industry-leading services designed for long-lasting performance.
+    </p>
+
+    {/* SERVICES GRID */}
+    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+
+      <div className="bg-blue-50 p-4 rounded-xl border border-blue-100 hover:shadow-md transition">
+        <h3 className="font-semibold text-blue-700">Trimix Work</h3>
+        <p className="text-sm text-gray-600">
+          Durable concrete flooring with vacuum dewatering for superior strength.
+        </p>
+      </div>
+
+      <div className="bg-blue-50 p-4 rounded-xl border border-blue-100 hover:shadow-md transition">
+        <h3 className="font-semibold text-blue-700">RCC Roads</h3>
+        <p className="text-sm text-gray-600">
+          Heavy-duty reinforced concrete roads built for durability.
+        </p>
+      </div>
+
+      <div className="bg-blue-50 p-4 rounded-xl border border-blue-100 hover:shadow-md transition">
+        <h3 className="font-semibold text-blue-700">Laser Finishing</h3>
+        <p className="text-sm text-gray-600">
+          Precision surface finishing for perfect leveling and durability.
+        </p>
+      </div>
+
+      <div className="bg-blue-50 p-4 rounded-xl border border-blue-100 hover:shadow-md transition">
+        <h3 className="font-semibold text-blue-700">Groove Cutting</h3>
+        <p className="text-sm text-gray-600">
+          Strategic joints to prevent cracks and improve structural stability.
+        </p>
+      </div>
+
+      <div className="bg-blue-50 p-4 rounded-xl border border-blue-100 hover:shadow-md transition">
+        <h3 className="font-semibold text-blue-700">Floor Epoxy</h3>
+        <p className="text-sm text-gray-600">
+          Glossy seamless coating that protects against wear and chemicals.
+        </p>
+      </div>
+
+      <div className="bg-blue-50 p-4 rounded-xl border border-blue-100 hover:shadow-md transition">
+        <h3 className="font-semibold text-blue-700">VDF Finishing</h3>
+        <p className="text-sm text-gray-600">
+          Vacuum Dewatered Flooring for stronger and durable surfaces.
+        </p>
+      </div>
+
+    </div>
+
+    <p className="text-gray-600 mt-8">
+      Our skilled team and advanced techniques ensure every project meets
+      the highest standards of quality, durability and performance.
+    </p>
+
+  </div>
+
+
+  {/* IMAGE SIDE */}
+  <div className="relative">
+
+    <img
+      src="/constructionimg3.png"
+      className="rounded-2xl shadow-2xl w-full"
+      alt="construction"
+    />
+
+    
+
+  </div>
+
+</section>
+
+        {/* TIMELINE */}
+        <section className="py-12 px-5 bg-gray-100">
+
+          <h2 className="text-2xl font-bold text-center mb-8 text-gray-800">
             Our Journey
           </h2>
 
-          <div className="max-w-3xl mx-auto space-y-8">
+          <div className="space-y-4">
+
             {[
-              { year: "2014", text: "Company Founded in Gujarat." },
-              { year: "2016", text: "First Major Residential Project." },
-              { year: "2019", text: "Expanded to Commercial Construction." },
-              { year: "2022", text: "100+ Successful Projects." },
-              { year: "2024", text: "Recognized for Quality Excellence." },
-            ].map((item, index) => (
-              <div key={index} className="bg-white p-6 rounded-2xl shadow-md">
-                <h3 className="text-xl font-bold text-blue-600 mb-2">
+              { year: "2014", text: "Company founded in Gujarat." },
+              { year: "2016", text: "First residential project completed." },
+              { year: "2019", text: "Started commercial construction projects." },
+              { year: "2022", text: "Successfully completed 100+ projects." },
+            ].map((item, i) => (
+
+              <div
+                key={i}
+                className="bg-white p-5 rounded-xl shadow-sm border border-gray-100"
+              >
+
+                <h3 className="text-base font-semibold text-blue-600 mb-1">
                   {item.year}
                 </h3>
-                <p className="text-gray-600">{item.text}</p>
+
+                <p className="text-sm text-gray-600">
+                  {item.text}
+                </p>
+
               </div>
+
             ))}
+
           </div>
+
         </section>
-      </FadeInSection>
 
-      {/* Founder Section */}
-      <ParallaxSection image="/ceo.jpg">
-        <div className="max-w-3xl text-white">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">
-            Message From Our Founder
-          </h2>
-          <p className="text-lg leading-relaxed">
-            We believe construction is about building trust, quality,
-            and long-term relationships.
+      </div>
+      {/* ================= TABLET VERSION ================= */}
+{/* ================= TABLET VERSION ================= */}
+<div className="hidden md:block lg:hidden w-full overflow-hidden">
+
+  {/* HERO */}
+  <section className="relative text-center">
+
+    <img
+      src="/constructionimg4.png"
+      alt="construction"
+      className="w-full h-[60vh] object-cover"
+    />
+
+    <div className="absolute inset-0 bg-black/60"></div>
+
+    <div className="absolute inset-0 flex flex-col items-center justify-center px-6">
+      <h1 className="text-4xl font-bold text-white mb-4">
+        About VSK Construction
+      </h1>
+
+      <p className="text-lg text-gray-200 max-w-xl">
+        Building trust with quality construction services across Gujarat.
+      </p>
+    </div>
+
+  </section>
+
+
+  {/* ================= COMPANY INTRO ================= */}
+<section className="max-w-7xl mx-auto py-20 px-6 grid md:grid-cols-2 gap-14 items-center">
+
+  {/* TEXT SIDE */}
+  <div>
+
+    <h2 className="text-4xl font-bold mb-6 text-gray-900">
+      Who We Are
+    </h2>
+
+    <p className="text-gray-600 text-lg leading-relaxed mb-8">
+      We are specialists in <span className="text-blue-600 font-semibold">high-quality concrete flooring</span> 
+      and <span className="text-blue-600 font-semibold">road construction solutions</span>.  
+      With a commitment to durability, precision and excellence, we deliver
+      industry-leading services designed for long-lasting performance.
+    </p>
+
+    {/* SERVICES GRID */}
+    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+
+      <div className="bg-blue-50 p-4 rounded-xl border border-blue-100 hover:shadow-md transition">
+        <h3 className="font-semibold text-blue-700">Trimix Work</h3>
+        <p className="text-sm text-gray-600">
+          Durable concrete flooring with vacuum dewatering for superior strength.
+        </p>
+      </div>
+
+      <div className="bg-blue-50 p-4 rounded-xl border border-blue-100 hover:shadow-md transition">
+        <h3 className="font-semibold text-blue-700">RCC Roads</h3>
+        <p className="text-sm text-gray-600">
+          Heavy-duty reinforced concrete roads built for durability.
+        </p>
+      </div>
+
+      <div className="bg-blue-50 p-4 rounded-xl border border-blue-100 hover:shadow-md transition">
+        <h3 className="font-semibold text-blue-700">Laser Finishing</h3>
+        <p className="text-sm text-gray-600">
+          Precision surface finishing for perfect leveling and durability.
+        </p>
+      </div>
+
+      <div className="bg-blue-50 p-4 rounded-xl border border-blue-100 hover:shadow-md transition">
+        <h3 className="font-semibold text-blue-700">Groove Cutting</h3>
+        <p className="text-sm text-gray-600">
+          Strategic joints to prevent cracks and improve structural stability.
+        </p>
+      </div>
+
+      <div className="bg-blue-50 p-4 rounded-xl border border-blue-100 hover:shadow-md transition">
+        <h3 className="font-semibold text-blue-700">Floor Epoxy</h3>
+        <p className="text-sm text-gray-600">
+          Glossy seamless coating that protects against wear and chemicals.
+        </p>
+      </div>
+
+      <div className="bg-blue-50 p-4 rounded-xl border border-blue-100 hover:shadow-md transition">
+        <h3 className="font-semibold text-blue-700">VDF Finishing</h3>
+        <p className="text-sm text-gray-600">
+          Vacuum Dewatered Flooring for stronger and durable surfaces.
+        </p>
+      </div>
+
+    </div>
+
+    <p className="text-gray-600 mt-8">
+      Our skilled team and advanced techniques ensure every project meets
+      the highest standards of quality, durability and performance.
+    </p>
+
+  </div>
+
+
+  {/* IMAGE SIDE */}
+  <div className="relative">
+
+    <img
+      src="/constructionimg3.png"
+      className="square-4xl shadow-2xl w-full"
+      alt="construction"
+    />
+
+    
+
+  </div>
+
+</section>
+
+
+  {/* TIMELINE */}
+  <section className="py-14 px-8 bg-gray-100">
+
+    <h2 className="text-3xl font-bold text-center mb-10 text-gray-800">
+      Our Journey
+    </h2>
+
+    <div className="grid grid-cols-2 gap-6">
+
+      {[
+        { year: "2014", text: "Company founded in Gujarat." },
+        { year: "2016", text: "First residential project completed." },
+        { year: "2019", text: "Started commercial construction projects." },
+        { year: "2022", text: "Successfully completed 100+ projects." },
+      ].map((item, i) => (
+
+        <div
+          key={i}
+          className="bg-white p-6 rounded-xl shadow-md border border-gray-100"
+        >
+
+          <h3 className="text-lg font-semibold text-blue-600 mb-2">
+            {item.year}
+          </h3>
+
+          <p className="text-gray-600 text-sm">
+            {item.text}
           </p>
-        </div>
-      </ParallaxSection>
 
-      {/* Stats */}
+        </div>
+
+      ))}
+
+    </div>
+
+  </section>
+
+</div>     
+
+
+      {/* ================= DESKTOP VERSION ================= */}
+      <div className="hidden lg:block">
+
+        {/* HERO */}
+        <section
+          className="relative h-screen flex items-center justify-center text-center bg-cover bg-center"
+          style={{ backgroundImage: "url('/constructionimg4.png')" }}
+        >
+
+          <div className="absolute inset-0 bg-black/60"></div>
+
+          <div className="relative z-10 text-white max-w-3xl">
+            <h1 className="text-6xl font-bold mb-6">
+              About VSK Construction
+            </h1>
+
+            <p className="text-xl text-gray-200">
+              Building trust through quality construction services across Gujarat.
+            </p>
+          </div>
+
+        </section>
+
+       {/* ================= COMPANY INTRO ================= */}
+<section className="max-w-7xl mx-auto py-20 px-6 grid md:grid-cols-2 gap-14 items-center">
+
+  {/* TEXT SIDE */}
+  <div>
+
+    <h2 className="text-4xl font-bold mb-6 text-gray-900">
+      Who We Are
+    </h2>
+
+    <p className="text-gray-600 text-lg leading-relaxed mb-8">
+      We are specialists in <span className="text-blue-600 font-semibold">high-quality concrete flooring</span> 
+      and <span className="text-blue-600 font-semibold">road construction solutions</span>.  
+      With a commitment to durability, precision and excellence, we deliver
+      industry-leading services designed for long-lasting performance.
+    </p>
+
+    {/* SERVICES GRID */}
+    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+
+      <div className="bg-blue-50 p-4 rounded-xl border border-blue-100 hover:shadow-md transition">
+        <h3 className="font-semibold text-blue-700">Trimix Work</h3>
+        <p className="text-sm text-gray-600">
+          Durable concrete flooring with vacuum dewatering for superior strength.
+        </p>
+      </div>
+
+      <div className="bg-blue-50 p-4 rounded-xl border border-blue-100 hover:shadow-md transition">
+        <h3 className="font-semibold text-blue-700">RCC Roads</h3>
+        <p className="text-sm text-gray-600">
+          Heavy-duty reinforced concrete roads built for durability.
+        </p>
+      </div>
+
+      <div className="bg-blue-50 p-4 rounded-xl border border-blue-100 hover:shadow-md transition">
+        <h3 className="font-semibold text-blue-700">Laser Finishing</h3>
+        <p className="text-sm text-gray-600">
+          Precision surface finishing for perfect leveling and durability.
+        </p>
+      </div>
+
+      <div className="bg-blue-50 p-4 rounded-xl border border-blue-100 hover:shadow-md transition">
+        <h3 className="font-semibold text-blue-700">Groove Cutting</h3>
+        <p className="text-sm text-gray-600">
+          Strategic joints to prevent cracks and improve structural stability.
+        </p>
+      </div>
+
+      <div className="bg-blue-50 p-4 rounded-xl border border-blue-100 hover:shadow-md transition">
+        <h3 className="font-semibold text-blue-700">Floor Epoxy</h3>
+        <p className="text-sm text-gray-600">
+          Glossy seamless coating that protects against wear and chemicals.
+        </p>
+      </div>
+
+      <div className="bg-blue-50 p-4 rounded-xl border border-blue-100 hover:shadow-md transition">
+        <h3 className="font-semibold text-blue-700">VDF Finishing</h3>
+        <p className="text-sm text-gray-600">
+          Vacuum Dewatered Flooring for stronger and durable surfaces.
+        </p>
+      </div>
+
+    </div>
+
+    <p className="text-gray-600 mt-8">
+      Our skilled team and advanced techniques ensure every project meets
+      the highest standards of quality, durability and performance.
+    </p>
+
+  </div>
+
+
+  {/* IMAGE SIDE */}
+  <div className="relative">
+
+    <img
+      src="/constructionimg3.png"
+      className="rounded-2xl shadow-2xl w-full"
+      alt="construction"
+    />
+
+    
+
+  </div>
+
+</section>
+
+        {/* TIMELINE */}
+        <section className="py-20 px-6 bg-gray-100">
+
+          <h2 className="text-3xl font-bold text-center mb-14">
+            Our Journey
+          </h2>
+
+          <div className="max-w-4xl mx-auto space-y-8">
+
+            {[
+              { year: "2014", text: "Company founded in Gujarat." },
+              { year: "2016", text: "First residential project." },
+              { year: "2019", text: "Commercial construction expansion." },
+              { year: "2022", text: "100+ successful projects." },
+              { year: "2024", text: "Industry recognition for excellence." },
+            ].map((item, index) => (
+
+              <div key={index} className="bg-white p-8 rounded-xl shadow">
+
+                <h3 className="text-xl font-bold text-blue-600">
+                  {item.year}
+                </h3>
+
+                <p className="text-gray-600 text-lg">
+                  {item.text}
+                </p>
+
+              </div>
+
+            ))}
+
+          </div>
+
+        </section>
+
+      </div>
+
+      {/* ================= STATS ================= */}
       <StatsSection />
 
-      {/* CTA */}
-      <section className="py-16 text-center bg-gray-100 px-6">
-        <h2 className="text-3xl font-bold mb-6">
-          Let’s Build Your Dream Project
-        </h2>
-        <a
-          href="/contactus"
-          className="inline-block bg-blue-600 text-white px-8 py-4 rounded-xl font-semibold hover:bg-blue-700 transition shadow-lg"
-        >
-          Contact Us
-        </a>
-      </section>
-
-      {/* GO TO TOP BUTTON */}
+      {/* ================= SCROLL TOP ================= */}
       {showTop && (
         <button
           onClick={scrollToTop}
-          className="fixed bottom-6 right-6 z-50 
-                     bg-blue-600 hover:bg-blue-700 
-                     text-white w-12 h-12 
-                     rounded-full shadow-xl 
-                     flex items-center justify-center 
-                     transition duration-300"
+          className="fixed bottom-6 right-6 z-50 bg-blue-600 text-white w-12 h-12 rounded-full shadow-lg flex items-center justify-center"
         >
           ↑
         </button>
