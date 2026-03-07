@@ -147,7 +147,7 @@ Contact VSK Construction
 </h1>
 
 <p className="mt-6 text-gray-300 text-xl">
-Let’s build something extraordinary together.
+Let’ build something extraordinary together.
 </p>
 
 </div>
