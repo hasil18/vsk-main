@@ -1,19 +1,9 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { useState, useEffect } from "react";
+import { motion } from "framer-motion";
 
 export default function Contact() {
-
-const heroRef = useRef(null);
-
-const { scrollYProgress } = useScroll({
-  target: heroRef,
-  offset: ["start start", "end start"],
-});
-
-const imageY = useTransform(scrollYProgress, [0, 1], ["0%", "30%"]);
-const scale = useTransform(scrollYProgress, [0, 1], [1, 1.1]);
 
 const [form, setForm] = useState({
   name: "",
@@ -72,55 +62,37 @@ return (
 
 {/* ================= HERO ================= */}
 
+{/* MOBILE HERO */}
+<section className="md:hidden relative text-center">
+<img src="/constructionimg6.png" className="w-full h-auto"/>
+<div className="absolute inset-0 bg-black/60"></div>
 
-{/* -------- MOBILE HERO -------- */}
-
-<section
-  ref={heroRef}
-  className="block md:hidden relative w-full aspect-[400/459] overflow-hidden"
->
-
-  <motion.img
-    src="/constructionimg6.png"
-    alt="Construction"
-    style={{ y: imageY, scale }}
-    className="absolute inset-0 w-full h-full object-contain object-center"
-  />
-
-  <div className="absolute inset-0 bg-black/60" />
-
-  <div className="absolute inset-0 flex items-center justify-center">
-    <div className="text-center px-6 z-10">
-
-      <h1 className="text-3xl font-light tracking-wide">
-        Contact VSK Construction
-      </h1>
-
-      <p className="mt-3 text-gray-300 text-sm">
-        Let’s build something extraordinary together.
-      </p>
-
-    </div>
-  </div>
-
+<div className="absolute inset-0 flex flex-col justify-center items-center px-6">
+<h1 className="text-3xl font-bold mb-3">Contact VSK Construction</h1>
+<p className="text-gray-200 text-sm">
+Let’s build something extraordinary together.
+</p>
+</div>
 </section>
-{/* -------- TABLET HERO -------- */}
-<section className="hidden md:flex lg:hidden relative h-[75vh] items-center justify-center overflow-hidden">
+
+
+{/* TABLET HERO */}
+<section className="hidden md:block lg:hidden relative h-[70vh]">
 
 <div
-className="absolute inset-0 bg-cover bg-[center_30%] bg-no-repeat"
+className="absolute inset-0 bg-cover bg-center"
 style={{ backgroundImage: "url('/constructionimg6.png')" }}
-/>
+></div>
 
-<div className="absolute inset-0 bg-black/60" />
+<div className="absolute inset-0 bg-black/60"></div>
 
-<div className="relative z-10 text-center px-10 max-w-3xl">
+<div className="relative flex flex-col justify-center items-center h-full text-center">
 
-<h1 className="text-5xl font-light tracking-wide">
+<h1 className="text-5xl font-light">
 Contact VSK Construction
 </h1>
 
-<p className="mt-4 text-gray-300 text-lg">
+<p className="text-gray-300 mt-4 text-lg">
 Let’s build something extraordinary together.
 </p>
 
@@ -129,25 +101,24 @@ Let’s build something extraordinary together.
 </section>
 
 
-{/* -------- DESKTOP HERO -------- */}
-
-<section className="hidden lg:flex relative h-screen items-center justify-center overflow-hidden">
+{/* DESKTOP HERO */}
+<section className="hidden lg:block relative h-screen">
 
 <div
-className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+className="absolute inset-0 bg-cover bg-center"
 style={{ backgroundImage: "url('/constructionimg6.png')" }}
-/>
+></div>
 
-<div className="absolute inset-0 bg-black/60" />
+<div className="absolute inset-0 bg-black/60"></div>
 
-<div className="relative z-10 text-center max-w-4xl">
+<div className="relative flex flex-col justify-center items-center h-full text-center">
 
-<h1 className="text-6xl font-light tracking-wide">
+<h1 className="text-6xl font-light">
 Contact VSK Construction
 </h1>
 
-<p className="mt-6 text-gray-300 text-xl">
-Let’ build something extraordinary together.
+<p className="text-gray-300 mt-6 text-xl">
+Let’s build something extraordinary together.
 </p>
 
 </div>
@@ -156,16 +127,12 @@ Let’ build something extraordinary together.
 
 
 
-{/* ================= FORM ================= */}
+{/* ================= CONTACT FORM ================= */}
 
-<section className="bg-white text-black py-16 md:py-20 lg:py-24">
+{/* MOBILE FORM */}
+<section className="md:hidden bg-white text-black py-14 px-6">
 
-<div className="max-w-4xl mx-auto px-6">
-
-<form
-onSubmit={handleSubmit}
-className="space-y-6 md:space-y-8"
->
+<form onSubmit={handleSubmit} className="space-y-5">
 
 <input
 name="name"
@@ -173,7 +140,7 @@ placeholder="Name"
 value={form.name}
 onChange={handleChange}
 required
-className="w-full border-b border-gray-400 py-3 md:py-4 outline-none"
+className="w-full border-b border-gray-400 py-3 outline-none"
 />
 
 <input
@@ -183,7 +150,7 @@ type="email"
 value={form.email}
 onChange={handleChange}
 required
-className="w-full border-b border-gray-400 py-3 md:py-4 outline-none"
+className="w-full border-b border-gray-400 py-3 outline-none"
 />
 
 <input
@@ -191,7 +158,7 @@ name="phone"
 placeholder="Phone"
 value={form.phone}
 onChange={handleChange}
-className="w-full border-b border-gray-400 py-3 md:py-4 outline-none"
+className="w-full border-b border-gray-400 py-3 outline-none"
 />
 
 <textarea
@@ -201,21 +168,67 @@ placeholder="Message"
 value={form.message}
 onChange={handleChange}
 required
-className="w-full border-b border-gray-400 py-3 md:py-4 outline-none"
+className="w-full border-b border-gray-400 py-3 outline-none"
 />
 
 <button
 type="submit"
-className="w-full bg-black text-white py-3 md:py-4 rounded-full hover:bg-gray-900 transition"
+className="w-full bg-black text-white py-3 rounded-full"
 >
-
 {loading ? "Sending..." : "Send Message"}
-
 </button>
 
-{success && (
-<p className="text-green-600 text-center">{success}</p>
-)}
+{success && <p className="text-green-600 text-center">{success}</p>}
+
+</form>
+
+</section>
+
+
+{/* TABLET FORM */}
+<section className="hidden md:block lg:hidden bg-white text-black py-20">
+
+<div className="max-w-3xl mx-auto px-10">
+
+<form onSubmit={handleSubmit} className="space-y-6">
+
+<input name="name" placeholder="Name" value={form.name} onChange={handleChange} required className="w-full border-b py-4 outline-none"/>
+
+<input name="email" placeholder="Email" type="email" value={form.email} onChange={handleChange} required className="w-full border-b py-4 outline-none"/>
+
+<input name="phone" placeholder="Phone" value={form.phone} onChange={handleChange} className="w-full border-b py-4 outline-none"/>
+
+<textarea name="message" rows={4} placeholder="Message" value={form.message} onChange={handleChange} required className="w-full border-b py-4 outline-none"/>
+
+<button className="w-full bg-black text-white py-4 rounded-full">
+{loading ? "Sending..." : "Send Message"}
+</button>
+
+</form>
+
+</div>
+
+</section>
+
+
+{/* DESKTOP FORM */}
+<section className="hidden lg:block bg-white text-black py-24">
+
+<div className="max-w-4xl mx-auto px-6">
+
+<form onSubmit={handleSubmit} className="space-y-8">
+
+<input name="name" placeholder="Name" value={form.name} onChange={handleChange} required className="w-full border-b py-4 outline-none"/>
+
+<input name="email" placeholder="Email" type="email" value={form.email} onChange={handleChange} required className="w-full border-b py-4 outline-none"/>
+
+<input name="phone" placeholder="Phone" value={form.phone} onChange={handleChange} className="w-full border-b py-4 outline-none"/>
+
+<textarea name="message" rows={4} placeholder="Message" value={form.message} onChange={handleChange} required className="w-full border-b py-4 outline-none"/>
+
+<button className="w-full bg-black text-white py-4 rounded-full">
+{loading ? "Sending..." : "Send Message"}
+</button>
 
 </form>
 
@@ -227,13 +240,38 @@ className="w-full bg-black text-white py-3 md:py-4 rounded-full hover:bg-gray-90
 
 {/* ================= MAP ================= */}
 
-<section className="bg-white pb-16 md:pb-20 lg:pb-24 px-6">
+{/* MOBILE MAP */}
+<section className="md:hidden bg-white pb-16 px-6">
+
+<iframe
+src="https://www.google.com/maps?q=Gujarat,India&output=embed&z=12"
+height="350"
+className="w-full rounded-xl"
+/>
+
+</section>
+
+
+{/* TABLET MAP */}
+<section className="hidden md:block lg:hidden bg-white pb-20 px-10">
+
+<iframe
+src="https://www.google.com/maps?q=Gujarat,India&output=embed&z=12"
+height="420"
+className="w-full rounded-2xl"
+/>
+
+</section>
+
+
+{/* DESKTOP MAP */}
+<section className="hidden lg:block bg-white pb-24 px-6">
 
 <div className="max-w-6xl mx-auto">
 
 <iframe
 src="https://www.google.com/maps?q=Gujarat,India&output=embed&z=12"
-height="420"
+height="450"
 className="w-full rounded-2xl shadow-xl"
 />
 
@@ -251,11 +289,9 @@ className="w-full rounded-2xl shadow-xl"
 onClick={scrollToTop}
 initial={{ opacity: 0 }}
 animate={{ opacity: 1 }}
-className="fixed bottom-6 right-6 z-50 bg-black text-white w-12 h-12 rounded-full shadow-xl flex items-center justify-center hover:bg-gray-900"
+className="fixed bottom-6 right-6 z-50 bg-black text-white w-12 h-12 rounded-full shadow-xl flex items-center justify-center"
 >
-
 ↑
-
 </motion.button>
 
 )}
@@ -263,5 +299,4 @@ className="fixed bottom-6 right-6 z-50 bg-black text-white w-12 h-12 rounded-ful
 </div>
 
 );
-
 }
