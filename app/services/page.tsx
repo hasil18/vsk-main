@@ -191,7 +191,7 @@ className="bg-gray-100 p-8 rounded-xl text-center shadow"
 <section className="bg-blue-600 text-white py-14 text-center">
 
 <h2 className="text-3xl font-bold mb-4">
-Ready to Start Your Project?
+edit to Start Your Project?
 </h2>
 
 <a
