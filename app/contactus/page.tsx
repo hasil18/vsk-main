@@ -1,302 +1,603 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { motion } from "framer-motion";
+import { useState, useRef, useEffect } from "react";
+import {
+  motion,
+  useScroll,
+  useTransform,
+  useInView,
+} from "framer-motion";
+ import { Phone, Mail, MapPin, Clock } from "lucide-react";
 
 export default function Contact() {
 
-const [form, setForm] = useState({
-  name: "",
-  email: "",
-  phone: "",
-  message: "",
-});
+  const heroRef = useRef(null);
+  const formRef = useRef(null);
 
-const [loading, setLoading] = useState(false);
-const [success, setSuccess] = useState("");
-const [showTop, setShowTop] = useState(false);
-
-useEffect(() => {
-  const handleScroll = () => {
-    setShowTop(window.scrollY > 400);
-  };
-
-  window.addEventListener("scroll", handleScroll);
-  return () => window.removeEventListener("scroll", handleScroll);
-}, []);
-
-const scrollToTop = () => {
-  window.scrollTo({ top: 0, behavior: "smooth" });
-};
-
-const handleChange = (e:any) => {
-  setForm({ ...form, [e.target.name]: e.target.value });
-};
-
-const handleSubmit = async (e:any) => {
-
-  e.preventDefault();
-  setLoading(true);
-
-  const res = await fetch("/api/contact", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(form),
+  const { scrollYProgress } = useScroll({
+    target: heroRef,
+    offset: ["start start", "end start"],
   });
 
-  const data = await res.json();
+  const imageY = useTransform(scrollYProgress, [0, 1], ["0%", "30%"]);
+  const scale = useTransform(scrollYProgress, [0, 1], [1, 1.1]);
+  const textY = useTransform(scrollYProgress, [0, 1], ["0%", "120%"]);
+  const opacity = useTransform(scrollYProgress, [0, 0.6], [1, 0]);
 
-  setLoading(false);
+  const isFormInView = useInView(formRef, { once: true });
 
-  if (data.success) {
-    setSuccess("Message sent successfully!");
-    setForm({ name: "", email: "", phone: "", message: "" });
-  } else {
-    alert("Something went wrong!");
-  }
-};
+  const [form, setForm] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    message: "",
+  });
 
-return (
+  const [loading, setLoading] = useState(false);
+  const [success, setSuccess] = useState("");
+  const [showTop, setShowTop] = useState(false);
 
-<div className="bg-black text-white overflow-x-hidden">
+  useEffect(() => {
+    const handleScroll = () => setShowTop(window.scrollY > 400);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
-{/* ================= HERO ================= */}
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
 
-{/* MOBILE HERO */}
-<section className="md:hidden relative text-center">
-<img src="/constructionimg6.png" className="w-full h-auto"/>
-<div className="absolute inset-0 bg-black/60"></div>
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
+  };
 
-<div className="absolute inset-0 flex flex-col justify-center items-center px-6">
-<h1 className="text-3xl font-bold mb-3">Contact VSK Construction</h1>
-<p className="text-gray-200 text-sm">
-Let’s build something extraordinary together.
-</p>
-</div>
-</section>
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
 
+    const res = await fetch("http://127.0.0.1:8000/api/contacts",  {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(form),
+    });
 
-{/* TABLET HERO */}
-<section className="hidden md:block lg:hidden relative h-[70vh]">
+    const data = await res.json();
+    setLoading(false);
 
-<div
-className="absolute inset-0 bg-cover bg-center"
-style={{ backgroundImage: "url('/constructionimg6.png')" }}
-></div>
+    if (data.success) {
+      setSuccess("Message sent successfully!");
+      setForm({ name: "", email: "", phone: "", message: "" });
+    } else {
+      alert("Something went wrong!");
+    }
+  };
 
-<div className="absolute inset-0 bg-black/60"></div>
+  return (
+    <div>
 
-<div className="relative flex flex-col justify-center items-center h-full text-center">
+      {/* ================= MOBILE ================= */}
+      <div className="md:hidden">
 
-<h1 className="text-5xl font-light">
-Contact VSK Construction
-</h1>
+       {/* HERO (Kept structure as requested) */}
+        <section
+          ref={heroRef}
+          className="relative h-[60vh] flex items-center justify-center overflow-hidden"
+        >
+          <motion.div
+            style={{ y: imageY, scale }}
+            className="absolute inset-0"
+          >
+            <div
+              className="w-full h-full bg-cover bg-center"
+              style={{
+                backgroundImage: "url('/constructionimg6.png')",
+              }}
+            />
+          </motion.div>
 
-<p className="text-gray-300 mt-4 text-lg">
-Let’s build something extraordinary together.
-</p>
+          <div className="absolute inset-0 bg-black/40"></div>
 
-</div>
+          <motion.div
+            style={{ y: textY, opacity }}
+            className="relative z-10 text-center"
+          >
+            <h1 className="text-6xl font-bold text-white">Contact Us</h1>
+          </motion.div>
+        </section>
+        {/* FORM SECTION - Modified for 2-column layout */}
+        <section className="py-24 bg-[#fcfcfc]">
+          <div className="max-w-6xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+            
+          
 
-</section>
+{/* Left Side: Text Content */}
+<div className="space-y-6">
 
+  {/* 🔹 Top Tag */}
+  <div className="flex items-center gap-2 text-blue-600 font-bold tracking-widest text-xs uppercase">
+    <span className="w-2 h-2 bg-blue-600 rounded-full"></span>
+    Get In Touch
+  </div>
 
-{/* DESKTOP HERO */}
-<section className="hidden lg:block relative h-screen">
+  {/* 🔹 Heading */}
+  <h2 className="text-6xl font-serif font-bold leading-tight">
+    Let's start a <br />
+    <span className="text-blue-500">conversation</span>
+  </h2>
 
-<div
-className="absolute inset-0 bg-cover bg-center"
-style={{ backgroundImage: "url('/constructionimg6.png')" }}
-></div>
+  {/* 🔹 Description */}
+  <p className="text-gray-500 text-lg max-w-md leading-relaxed">
+    Have a project in mind? Fill out the form and our team will get back to you within 24 hours.
+  </p>
 
-<div className="absolute inset-0 bg-black/60"></div>
+  {/* 🔥 Contact Info */}
+  <div className="space-y-4 pt-4">
 
-<div className="relative flex flex-col justify-center items-center h-full text-center">
+    {/* Phone */}
+    <div className="flex items-center gap-4">
+      <div className="w-10 h-10 flex items-center justify-center bg-blue-100 text-blue-600 rounded-lg">
+        <Phone size={18} />
+      </div>
+      <div>
+        <p className="text-sm text-gray-400">Phone</p>
+        <p className="font-semibold text-gray-700">+91 98765 43210</p>
+      </div>
+    </div>
 
-<h1 className="text-6xl font-light">
-Contact VSK Construction
-</h1>
+    {/* Email */}
+    <div className="flex items-center gap-4">
+      <div className="w-10 h-10 flex items-center justify-center bg-blue-100 text-blue-600 rounded-lg">
+        <Mail size={18} />
+      </div>
+      <div>
+        <p className="text-sm text-gray-400">Email</p>
+        <p className="font-semibold text-gray-700">info@vskconstruction.com</p>
+      </div>
+    </div>
 
-<p className="text-gray-300 mt-6 text-xl">
-Let’s build something extraordinary together.
-</p>
+    {/* Location */}
+    <div className="flex items-center gap-4">
+      <div className="w-10 h-10 flex items-center justify-center bg-blue-100 text-blue-600 rounded-lg">
+        <MapPin size={18} />
+      </div>
+      <div>
+        <p className="text-sm text-gray-400">Location</p>
+        <p className="font-semibold text-gray-700">Ahmedabad, Gujarat, India</p>
+      </div>
+    </div>
 
-</div>
+    {/* Working Hours */}
+    <div className="flex items-center gap-4">
+      <div className="w-10 h-10 flex items-center justify-center bg-blue-100 text-blue-600 rounded-lg">
+        <Clock size={18} />
+      </div>
+      <div>
+        <p className="text-sm text-gray-400">Working Hours</p>
+        <p className="font-semibold text-gray-700">Mon - Sat : 9:00 AM - 7:00 PM</p>
+      </div>
+    </div>
 
-</section>
+  </div>
 
-
-
-{/* ================= CONTACT FORM ================= */}
-
-{/* MOBILE FORM */}
-<section className="md:hidden bg-white text-black py-14 px-6">
-
-<form onSubmit={handleSubmit} className="space-y-5">
-
-<input
-name="name"
-placeholder="Name"
-value={form.name}
-onChange={handleChange}
-required
-className="w-full border-b border-gray-400 py-3 outline-none"
-/>
-
-<input
-name="email"
-placeholder="Email"
-type="email"
-value={form.email}
-onChange={handleChange}
-required
-className="w-full border-b border-gray-400 py-3 outline-none"
-/>
-
-<input
-name="phone"
-placeholder="Phone"
-value={form.phone}
-onChange={handleChange}
-className="w-full border-b border-gray-400 py-3 outline-none"
-/>
-
-<textarea
-name="message"
-rows={4}
-placeholder="Message"
-value={form.message}
-onChange={handleChange}
-required
-className="w-full border-b border-gray-400 py-3 outline-none"
-/>
-
-<button
-type="submit"
-className="w-full bg-black text-white py-3 rounded-full"
->
-{loading ? "Sending..." : "Send Message"}
-</button>
-
-{success && <p className="text-green-600 text-center">{success}</p>}
-
-</form>
-
-</section>
-
-
-{/* TABLET FORM */}
-<section className="hidden md:block lg:hidden bg-white text-black py-20">
-
-<div className="max-w-3xl mx-auto px-10">
-
-<form onSubmit={handleSubmit} className="space-y-6">
-
-<input name="name" placeholder="Name" value={form.name} onChange={handleChange} required className="w-full border-b py-4 outline-none"/>
-
-<input name="email" placeholder="Email" type="email" value={form.email} onChange={handleChange} required className="w-full border-b py-4 outline-none"/>
-
-<input name="phone" placeholder="Phone" value={form.phone} onChange={handleChange} className="w-full border-b py-4 outline-none"/>
-
-<textarea name="message" rows={4} placeholder="Message" value={form.message} onChange={handleChange} required className="w-full border-b py-4 outline-none"/>
-
-<button className="w-full bg-black text-white py-4 rounded-full">
-{loading ? "Sending..." : "Send Message"}
-</button>
-
-</form>
-
-</div>
-
-</section>
-
-
-{/* DESKTOP FORM */}
-<section className="hidden lg:block bg-white text-black py-24">
-
-<div className="max-w-4xl mx-auto px-6">
-
-<form onSubmit={handleSubmit} className="space-y-8">
-
-<input name="name" placeholder="Name" value={form.name} onChange={handleChange} required className="w-full border-b py-4 outline-none"/>
-
-<input name="email" placeholder="Email" type="email" value={form.email} onChange={handleChange} required className="w-full border-b py-4 outline-none"/>
-
-<input name="phone" placeholder="Phone" value={form.phone} onChange={handleChange} className="w-full border-b py-4 outline-none"/>
-
-<textarea name="message" rows={4} placeholder="Message" value={form.message} onChange={handleChange} required className="w-full border-b py-4 outline-none"/>
-
-<button className="w-full bg-black text-white py-4 rounded-full">
-{loading ? "Sending..." : "Send Message"}
-</button>
-
-</form>
+  {/* 🔹 Bottom Lines */}
+  <div className="pt-8 border-t border-gray-200 w-2/3 space-y-2">
+    <div className="h-1 bg-gray-100 w-full"></div>
+    <div className="h-1 bg-gray-100 w-3/4"></div>
+  </div>
 
 </div>
+            {/* Right Side: The Form Card */}
+            <motion.div
+              ref={formRef}
+              initial={{ opacity: 0, y: 40 }}
+              animate={isFormInView ? { opacity: 1, y: 0 } : {}}
+              className="bg-white shadow-[0_20px_50px_rgba(0,0,0,0.05)] p-12 rounded-3xl"
+            >
+              <form onSubmit={handleSubmit} className="space-y-10">
+                {["Your Name", "Email Address", "Phone Number"].map((label, idx) => {
+                  const fields = ["name", "email", "phone"];
+                  const field = fields[idx];
+                  return (
+                    <div key={field} className="relative">
+                      <input
+                        type="text"
+                        name={field}
+                        placeholder={label}
+                        value={(form as any)[field]}
+                        onChange={handleChange}
+                        className="w-full border-b border-gray-200 py-4 outline-none focus:border-blue-500 transition-colors placeholder:text-gray-400 text-gray-700"
+                      />
+                    </div>
+                  );
+                })}
 
-</section>
+                <textarea
+                  name="message"
+                  rows={3}
+                  placeholder="Your Message"
+                  value={form.message}
+                  onChange={handleChange}
+                  className="w-full border-b border-gray-200 py-4 outline-none focus:border-blue-500 transition-colors placeholder:text-gray-400 text-gray-700 resize-none"
+                />
+
+                <button className="w-full bg-[#2962ff] hover:bg-blue-700 text-white py-5 rounded-xl font-bold flex items-center justify-center gap-3 transition-all shadow-lg shadow-blue-200">
+                  {loading ? "Sending..." : (
+                    <>
+                      Send Message
+                      <svg className="w-5 h-5 rotate-[-45deg]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
+                      </svg>
+                    </>
+                  )}
+                </button>
+              </form>
+            </motion.div>
+
+          </div>
+        </section>
 
 
+      </div>
 
-{/* ================= MAP ================= */}
+      {/* ================= TABLET ================= */}
+      <div className="hidden md:block lg:hidden">
 
-{/* MOBILE MAP */}
-<section className="md:hidden bg-white pb-16 px-6">
+        {/* HERO (Kept structure as requested) */}
+        <section
+          ref={heroRef}
+          className="relative h-[60vh] flex items-center justify-center overflow-hidden"
+        >
+          <motion.div
+            style={{ y: imageY, scale }}
+            className="absolute inset-0"
+          >
+            <div
+              className="w-full h-full bg-cover bg-center"
+              style={{
+                backgroundImage: "url('/constructionimg6.png')",
+              }}
+            />
+          </motion.div>
 
-<iframe
-src="https://www.google.com/maps?q=Gujarat,India&output=embed&z=12"
-height="350"
-className="w-full rounded-xl"
-/>
+          <div className="absolute inset-0 bg-black/40"></div>
 
-</section>
+          <motion.div
+            style={{ y: textY, opacity }}
+            className="relative z-10 text-center"
+          >
+            <h1 className="text-6xl font-bold text-white">Contact Us</h1>
+          </motion.div>
+        </section>
 
+        {/* FORM SECTION - Modified for 2-column layout */}
+        <section className="py-24 bg-[#fcfcfc]">
+          <div className="max-w-6xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+            
+          
 
-{/* TABLET MAP */}
-<section className="hidden md:block lg:hidden bg-white pb-20 px-10">
+{/* Left Side: Text Content */}
+<div className="space-y-6">
 
-<iframe
-src="https://www.google.com/maps?q=Gujarat,India&output=embed&z=12"
-height="420"
-className="w-full rounded-2xl"
-/>
+  {/* 🔹 Top Tag */}
+  <div className="flex items-center gap-2 text-blue-600 font-bold tracking-widest text-xs uppercase">
+    <span className="w-2 h-2 bg-blue-600 rounded-full"></span>
+    Get In Touch
+  </div>
 
-</section>
+  {/* 🔹 Heading */}
+  <h2 className="text-6xl font-serif font-bold leading-tight">
+    Let's start a <br />
+    <span className="text-blue-500">conversation</span>
+  </h2>
 
+  {/* 🔹 Description */}
+  <p className="text-gray-500 text-lg max-w-md leading-relaxed">
+    Have a project in mind? Fill out the form and our team will get back to you within 24 hours.
+  </p>
 
-{/* DESKTOP MAP */}
-<section className="hidden lg:block bg-white pb-24 px-6">
+  {/* 🔥 Contact Info */}
+  <div className="space-y-4 pt-4">
 
-<div className="max-w-6xl mx-auto">
+    {/* Phone */}
+    <div className="flex items-center gap-4">
+      <div className="w-10 h-10 flex items-center justify-center bg-blue-100 text-blue-600 rounded-lg">
+        <Phone size={18} />
+      </div>
+      <div>
+        <p className="text-sm text-gray-400">Phone</p>
+        <p className="font-semibold text-gray-700">+91 98765 43210</p>
+      </div>
+    </div>
 
-<iframe
-src="https://www.google.com/maps?q=Gujarat,India&output=embed&z=12"
-height="450"
-className="w-full rounded-2xl shadow-xl"
-/>
+    {/* Email */}
+    <div className="flex items-center gap-4">
+      <div className="w-10 h-10 flex items-center justify-center bg-blue-100 text-blue-600 rounded-lg">
+        <Mail size={18} />
+      </div>
+      <div>
+        <p className="text-sm text-gray-400">Email</p>
+        <p className="font-semibold text-gray-700">info@vskconstruction.com</p>
+      </div>
+    </div>
+
+    {/* Location */}
+    <div className="flex items-center gap-4">
+      <div className="w-10 h-10 flex items-center justify-center bg-blue-100 text-blue-600 rounded-lg">
+        <MapPin size={18} />
+      </div>
+      <div>
+        <p className="text-sm text-gray-400">Location</p>
+        <p className="font-semibold text-gray-700">Ahmedabad, Gujarat, India</p>
+      </div>
+    </div>
+
+    {/* Working Hours */}
+    <div className="flex items-center gap-4">
+      <div className="w-10 h-10 flex items-center justify-center bg-blue-100 text-blue-600 rounded-lg">
+        <Clock size={18} />
+      </div>
+      <div>
+        <p className="text-sm text-gray-400">Working Hours</p>
+        <p className="font-semibold text-gray-700">Mon - Sat : 9:00 AM - 7:00 PM</p>
+      </div>
+    </div>
+
+  </div>
+
+  {/* 🔹 Bottom Lines */}
+  <div className="pt-8 border-t border-gray-200 w-2/3 space-y-2">
+    <div className="h-1 bg-gray-100 w-full"></div>
+    <div className="h-1 bg-gray-100 w-3/4"></div>
+  </div>
 
 </div>
+            {/* Right Side: The Form Card */}
+            <motion.div
+              ref={formRef}
+              initial={{ opacity: 0, y: 40 }}
+              animate={isFormInView ? { opacity: 1, y: 0 } : {}}
+              className="bg-white shadow-[0_20px_50px_rgba(0,0,0,0.05)] p-12 rounded-3xl"
+            >
+              <form onSubmit={handleSubmit} className="space-y-10">
+                {["Your Name", "Email Address", "Phone Number"].map((label, idx) => {
+                  const fields = ["name", "email", "phone"];
+                  const field = fields[idx];
+                  return (
+                    <div key={field} className="relative">
+                      <input
+                        type="text"
+                        name={field}
+                        placeholder={label}
+                        value={(form as any)[field]}
+                        onChange={handleChange}
+                        className="w-full border-b border-gray-200 py-4 outline-none focus:border-blue-500 transition-colors placeholder:text-gray-400 text-gray-700"
+                      />
+                    </div>
+                  );
+                })}
 
-</section>
+                <textarea
+                  name="message"
+                  rows={3}
+                  placeholder="Your Message"
+                  value={form.message}
+                  onChange={handleChange}
+                  className="w-full border-b border-gray-200 py-4 outline-none focus:border-blue-500 transition-colors placeholder:text-gray-400 text-gray-700 resize-none"
+                />
+
+                <button className="w-full bg-[#2962ff] hover:bg-blue-700 text-white py-5 rounded-xl font-bold flex items-center justify-center gap-3 transition-all shadow-lg shadow-blue-200">
+                  {loading ? "Sending..." : (
+                    <>
+                      Send Message
+                      <svg className="w-5 h-5 rotate-[-45deg]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
+                      </svg>
+                    </>
+                  )}
+                </button>
+              </form>
+            </motion.div>
+
+          </div>
+        </section>
 
 
+      </div>
+{/* ================= DESKTOP ================= */}
+      <div className="hidden lg:block bg-white text-black">
 
-{/* ================= SCROLL TO TOP ================= */}
+        {/* HERO (Kept structure as requested) */}
+        <section
+          ref={heroRef}
+          className="relative h-[60vh] flex items-center justify-center overflow-hidden"
+        >
+          <motion.div
+            style={{ y: imageY, scale }}
+            className="absolute inset-0"
+          >
+            <div
+              className="w-full h-full bg-cover bg-center"
+              style={{
+                backgroundImage: "url('/constructionimg6.png')",
+              }}
+            />
+          </motion.div>
 
-{showTop && (
+          <div className="absolute inset-0 bg-black/40"></div>
 
-<motion.button
-onClick={scrollToTop}
-initial={{ opacity: 0 }}
-animate={{ opacity: 1 }}
-className="fixed bottom-6 right-6 z-50 bg-black text-white w-12 h-12 rounded-full shadow-xl flex items-center justify-center"
->
-↑
-</motion.button>
+          <motion.div
+            style={{ y: textY, opacity }}
+            className="relative z-10 text-center"
+          >
+            <h1 className="text-6xl font-bold text-white">Contact Us</h1>
+          </motion.div>
+        </section>
 
-)}
+        {/* FORM SECTION - Modified for 2-column layout */}
+        <section className="py-24 bg-[#fcfcfc]">
+          <div className="max-w-6xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+            
+         
+
+{/* Left Side: Text Content */}
+<div className="space-y-6">
+
+  {/* 🔹 Top Tag */}
+  <div className="flex items-center gap-2 text-blue-600 font-bold tracking-widest text-xs uppercase">
+    <span className="w-2 h-2 bg-blue-600 rounded-full"></span>
+    Get In Touch
+  </div>
+
+  {/* 🔹 Heading */}
+  <h2 className="text-6xl font-serif font-bold leading-tight">
+    Let's start a <br />
+    <span className="text-blue-500">conversation</span>
+  </h2>
+
+  {/* 🔹 Description */}
+  <p className="text-gray-500 text-lg max-w-md leading-relaxed">
+    Have a project in mind? Fill out the form and our team will get back to you within 24 hours.
+  </p>
+
+  {/* 🔥 Contact Info */}
+  <div className="space-y-4 pt-4">
+
+    {/* Phone */}
+    <div className="flex items-center gap-4">
+      <div className="w-10 h-10 flex items-center justify-center bg-blue-100 text-blue-600 rounded-lg">
+        <Phone size={18} />
+      </div>
+      <div>
+        <p className="text-sm text-gray-400">Phone</p>
+        <p className="font-semibold text-gray-700">+91 98765 43210</p>
+      </div>
+    </div>
+
+    {/* Email */}
+    <div className="flex items-center gap-4">
+      <div className="w-10 h-10 flex items-center justify-center bg-blue-100 text-blue-600 rounded-lg">
+        <Mail size={18} />
+      </div>
+      <div>
+        <p className="text-sm text-gray-400">Email</p>
+        <p className="font-semibold text-gray-700">info@vskconstruction.com</p>
+      </div>
+    </div>
+
+    {/* Location */}
+    <div className="flex items-center gap-4">
+      <div className="w-10 h-10 flex items-center justify-center bg-blue-100 text-blue-600 rounded-lg">
+        <MapPin size={18} />
+      </div>
+      <div>
+        <p className="text-sm text-gray-400">Location</p>
+        <p className="font-semibold text-gray-700">Ahmedabad, Gujarat, India</p>
+      </div>
+    </div>
+
+    {/* Working Hours */}
+    <div className="flex items-center gap-4">
+      <div className="w-10 h-10 flex items-center justify-center bg-blue-100 text-blue-600 rounded-lg">
+        <Clock size={18} />
+      </div>
+      <div>
+        <p className="text-sm text-gray-400">Working Hours</p>
+        <p className="font-semibold text-gray-700">Mon - Sat : 9:00 AM - 7:00 PM</p>
+      </div>
+    </div>
+
+  </div>
+
+  {/* 🔹 Bottom Lines */}
+  <div className="pt-8 border-t border-gray-200 w-2/3 space-y-2">
+    <div className="h-1 bg-gray-100 w-full"></div>
+    <div className="h-1 bg-gray-100 w-3/4"></div>
+  </div>
 
 </div>
+            {/* Right Side: The Form Card */}
+            <motion.div
+              ref={formRef}
+              initial={{ opacity: 0, y: 40 }}
+              animate={isFormInView ? { opacity: 1, y: 0 } : {}}
+              className="bg-white shadow-[0_20px_50px_rgba(0,0,0,0.05)] p-12 rounded-3xl"
+            >
+              <form onSubmit={handleSubmit} className="space-y-10">
+                {["Your Name", "Email Address", "Phone Number"].map((label, idx) => {
+                  const fields = ["name", "email", "phone"];
+                  const field = fields[idx];
+                  return (
+                    <div key={field} className="relative">
+                      <input
+                        type="text"
+                        name={field}
+                        placeholder={label}
+                        value={(form as any)[field]}
+                        onChange={handleChange}
+                        className="w-full border-b border-gray-200 py-4 outline-none focus:border-blue-500 transition-colors placeholder:text-gray-400 text-gray-700"
+                      />
+                    </div>
+                  );
+                })}
 
-);
+                <textarea
+                  name="message"
+                  rows={3}
+                  placeholder="Your Message"
+                  value={form.message}
+                  onChange={handleChange}
+                  className="w-full border-b border-gray-200 py-4 outline-none focus:border-blue-500 transition-colors placeholder:text-gray-400 text-gray-700 resize-none"
+                />
+
+                <button className="w-full bg-[#2962ff] hover:bg-blue-700 text-white py-5 rounded-xl font-bold flex items-center justify-center gap-3 transition-all shadow-lg shadow-blue-200">
+                  {loading ? "Sending..." : (
+                    <>
+                      Send Message
+                      <svg className="w-5 h-5 rotate-[-45deg]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
+                      </svg>
+                    </>
+                  )}
+                </button>
+              </form>
+            </motion.div>
+
+          </div>
+        </section>
+
+         {/* MAP */}
+        <section className="pb-20 bg-white px-6">
+
+          <div className="max-w-6xl mx-auto rounded-2xl overflow-hidden shadow-2xl">
+
+            <iframe
+              src="https://www.google.com/maps?q=Gujarat,India&output=embed&z=12"
+              width="100%"
+              height="450"
+              loading="lazy"
+              className="border-0 w-full"
+            />
+
+          </div>
+
+        </section>
+
+      </div>
+
+      {/* ================= SCROLL TOP ================= */}
+      {showTop && (
+        <button
+          onClick={scrollToTop}
+          className="fixed bottom-6 right-6 bg-blue-600 text-white w-12 h-12 rounded-full"
+        >
+          ↑
+        </button>
+      )}
+
+    </div>
+  );
 }

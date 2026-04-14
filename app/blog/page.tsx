@@ -1,8 +1,8 @@
 import Link from "next/link";
 
-/* 🔥 Fetch services */
-async function getservices() {
-  const res = await fetch("http://127.0.0.1:8000/api/services");
+/* 🔥 Fetch blogs */
+async function getBlogs() {
+  const res = await fetch("http://127.0.0.1:8000/api/blogs");
 
   const result = await res.json();
 
@@ -10,7 +10,7 @@ async function getservices() {
 }
 
 /* 🔥 Card */
-function ServiceCard({ title, description, image, slug }: any) {
+function BlogCard({ title, content, image, slug }: any) {
   return (
     <div className="bg-white rounded-xl shadow hover:shadow-xl transition overflow-hidden">
 
@@ -25,15 +25,15 @@ function ServiceCard({ title, description, image, slug }: any) {
         <h3 className="text-lg font-semibold mb-2">{title}</h3>
 
         <p className="text-gray-600 text-sm mb-4">
-          {description?.substring(0, 80)}...
+          {content?.substring(0, 80)}...
         </p>
 
-       <Link
-  href={`/services/${slug}/`}   // 🔥 IMPORTANT: trailing slash
-  className="text-blue-600 font-semibold hover:underline"
->
-  Read More →
-</Link>
+        <Link
+          href={`/blog/${slug}`}
+          className="text-blue-600 font-semibold hover:underline"
+        >
+          Read More →
+        </Link>
       </div>
 
     </div>
@@ -41,8 +41,8 @@ function ServiceCard({ title, description, image, slug }: any) {
 }
 
 /* 🔥 MAIN PAGE */
-export default async function servicePage() {
-  const services = await getservices();
+export default async function BlogPage() {
+  const blogs = await getBlogs();
 
   return (
     <div>
@@ -56,7 +56,7 @@ export default async function servicePage() {
 
         <div className="absolute inset-0 flex flex-col items-center justify-center px-6">
           <h1 className="text-3xl md:text-5xl font-bold text-white">
-            Our service
+            Our Blog
           </h1>
           <p className="text-sm md:text-lg text-gray-200 mt-2">
             Latest updates & construction insights
@@ -65,7 +65,7 @@ export default async function servicePage() {
 
       </section>
 
-      {/* service GRID */}
+      {/* BLOG GRID */}
       <section className="py-16 px-6 bg-gray-100">
 
         <h2 className="text-3xl font-bold text-center mb-10">
@@ -73,8 +73,8 @@ export default async function servicePage() {
         </h2>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {services.map((service: any) => (
-            <ServiceCard key={service.id} {...service} />
+          {blogs.map((blog: any) => (
+            <BlogCard key={blog.id} {...blog} />
           ))}
         </div>
 

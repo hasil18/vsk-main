@@ -29,50 +29,61 @@ return(
 
 {/* ================= MOBILE VERSION ================= */}
 
-<div className="md:hidden w-full overflow-hidden">
+<div className="md:hidden w-screen overflow-hidden">
 
-{/* HERO */}
+  {/* HERO */}
+  <section className="relative h-screen w-screen flex items-center justify-center text-center bg-black">
 
-<section className="relative text-center">
+    {/* 🔥 Background Video (NO CROP) */}
+    <video
+      className="absolute top-0 left-0 w-full h-full object-contain z-10"
+      autoPlay
+      loop
+      muted
+      playsInline
+    >
+      <source src="/vskhero.mp4" type="video/mp4" />
+    </video>
 
-<img
-src="/constructionimg2.png"
-alt="construction"
-className="w-full h-auto"
-/>
+    {/* 🔥 Dark Overlay */}
+    <div className="absolute inset-0 bg-white z-0"></div>
 
-<div className="absolute inset-0 bg-black/60"></div>
+    {/* 🔥 Content */}
+    <div className="relative z-50 text-white max-w-4xl px-4">
 
-<div className="absolute inset-0 flex flex-col items-center justify-center px-6">
+      <h1 className="-mt-75 text-4xl sm:text-5xl font-extrabold leading-tight text-black">
+        Building Strong
+        <span className="block text-yellow-500">Foundations</span>
+      </h1>
 
-<h1 className="text-3xl font-bold text-white">
-Building Strong Foundations
-</h1>
-
-<p className="text-sm text-gray-200 mt-2">
-High quality Trimix Flooring and RCC Road Construction Services.
-</p>
-
-<div className="flex gap-4 mt-5">
+      <p className="mt-6 text-base sm:text-lg text-black max-w-3xl mx-auto">
+        We provide high quality construction solutions including Trimix Flooring,
+        RCC Roads, Laser Finishing and Epoxy Coatings.
+      </p>
+<div>
+     {/* 🔥 Separate Button Section */}
+<div className="absolute -bottom-55 left-1/2 -translate-x-1/2 z-50 flex flex-col sm:flex-row gap-4">
 
   <Link
     href="/contactus"
-    className="bg-yellow-500 text-black px-3 py-3 rounded-lg hover:bg-yellow-400 transition"
-  >
-    Get Quote
+    className="bg-yellow-500 hover:bg-yellow-400 text-black font-semibold px-6 py-3 rounded-lg transition text-center"
+  > 
+    Get Free Quote
   </Link>
 
   <Link
     href="/services"
-    className="border border-white text-white px-3 py-3 rounded-lg hover:bg-white hover:text-black transition"
-  >
+    className="border border-black text-black px-6 py-3 rounded-lg hover:bg-white hover:text-black transition text-center"
+  > 
     Our Services
   </Link>
 
 </div>
-</div>
 
-</section>
+      </div>
+    </div>
+
+  </section>
 
 
 {/* ABOUT */}
@@ -226,47 +237,56 @@ Request Quote
 
 {/* HERO */}
 
-<section className="relative text-center">
+<section className="relative h-screen flex items-center justify-center text-center bg-cover bg-center">
 
-<img
-src="/constructionimg2.png"
-alt="construction"
-className="w-full h-[60vh] object-cover"
-/>
+  {/* 🔥 Background Video */}
+  <video
+    className="absolute top-0 left-0 w-full h-full object-cover z-0"
+    autoPlay
+    loop
+    muted
+    playsInline
+  >
+    <source src="/vskhero.mp4" type="video/mp4" />
+  </video>
 
-<div className="absolute inset-0 bg-black/60"></div>
+  {/* 🔥 Dark Overlay */}
+  <div className="absolute inset-0 bg-black/60 z-0"></div>
 
-<div className="absolute inset-0 flex flex-col items-center justify-center px-6">
+  {/* 🔥 Content */}
+  <div className="relative z-10 text-white max-w-4xl">
 
-<h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-8xl font-extrabold text-white leading-tight">
-Building Strong
-<span className="block text-yellow-500">Foundations</span>
-</h1>
+    <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-8xl font-extrabold text-white leading-tight">
+      Building Strong
+      <span className="block text-yellow-500">Foundations</span>
+    </h1>
 
-<p className="mt-6 text-base sm:text-lg md:text-xl text-gray-200 max-w-3xl mx-auto">
-We provide high quality construction solutions including Trimix Flooring,
-RCC Roads, Laser Finishing and Epoxy Coatings.
-</p>
+    <p className="mt-6 text-base sm:text-lg md:text-xl text-gray-200 max-w-3xl mx-auto">
+      We provide high quality construction solutions including Trimix Flooring,
+      RCC Roads, Laser Finishing and Epoxy Coatings.
+    </p>
 
-<div className="mt-10 flex flex-col sm:flex-row gap-4 justify-center">
+    <div className="mt-10 flex flex-col sm:flex-row gap-4 justify-center">
 
-<Link
-href="/contactus"
-className="bg-yellow-500 hover:bg-yellow-400 text-black font-semibold px-8 py-4 rounded-lg transition"
-> 
-GetFree Quote
-</Link>
+      <Link
+        href="/contactus"
+        className="bg-yellow-500 hover:bg-yellow-400 text-black font-semibold px-8 py-4 rounded-lg transition"
+      > 
+        Get Free Quote
+      </Link>
 
-<Link
-href="/services"
-className="border border-white text-white px-8 py-4 rounded-lg hover:bg-white hover:text-black transition"
-> 
-OurServices
-</Link>
-</div>
-</div>
+      <Link
+        href="/services"
+        className="border border-white text-white px-8 py-4 rounded-lg hover:bg-white hover:text-black transition"
+      > 
+        Our Services
+      </Link>
+
+    </div>
+  </div>
 
 </section>
+
 
 
 {/* ABOUT */}
@@ -427,42 +447,53 @@ Request Quote
 
 {/* HERO */}
 
-<section
-className="relative h-screen flex items-center justify-center text-center bg-cover bg-center"
-style={{ backgroundImage:"url('/constructionimg2.png')" }}
->
+<section className="relative h-screen flex items-center justify-center text-center bg-cover bg-center">
 
-<div className="absolute inset-0 bg-black/60"></div>
+  {/* 🔥 Background Video */}
+  <video
+    className="absolute top-0 left-0 w-full h-full object-cover z-0"
+    autoPlay
+    loop
+    muted
+    playsInline
+  >
+    <source src="/vskhero.mp4" type="video/mp4" />
+  </video>
 
-<div className="relative z-10 text-white max-w-4xl">
+  {/* 🔥 Dark Overlay */}
+  <div className="absolute inset-0 bg-black/60 z-0"></div>
 
-<h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-8xl font-extrabold text-white leading-tight">
-Building Strong
-<span className="block text-yellow-500">Foundations</span>
-</h1>
+  {/* 🔥 Content */}
+  <div className="relative z-10 text-white max-w-4xl">
 
-<p className="mt-6 text-base sm:text-lg md:text-xl text-gray-200 max-w-3xl mx-auto">
-We provide high quality construction solutions including Trimix Flooring,
-RCC Roads, Laser Finishing and Epoxy Coatings.
-</p>
+    <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-8xl font-extrabold text-white leading-tight">
+      Building Strong
+      <span className="block text-yellow-500">Foundations</span>
+    </h1>
 
-<div className="mt-10 flex flex-col sm:flex-row gap-4 justify-center">
+    <p className="mt-6 text-base sm:text-lg md:text-xl text-gray-200 max-w-3xl mx-auto">
+      We provide high quality construction solutions including Trimix Flooring,
+      RCC Roads, Laser Finishing and Epoxy Coatings.
+    </p>
 
-<Link
-href="/contactus"
-className="bg-yellow-500 hover:bg-yellow-400 text-black font-semibold px-8 py-4 rounded-lg transition"
-> 
-GetFree Quote
-</Link>
+    <div className="mt-10 flex flex-col sm:flex-row gap-4 justify-center">
 
-<Link
-href="/services"
-className="border border-white text-white px-8 py-4 rounded-lg hover:bg-white hover:text-black transition"
-> 
-OurServices
-</Link>
-</div>
-</div>
+      <Link
+        href="/contactus"
+        className="bg-yellow-500 hover:bg-yellow-400 text-black font-semibold px-8 py-4 rounded-lg transition"
+      > 
+        Get Free Quote
+      </Link>
+
+      <Link
+        href="/services"
+        className="border border-white text-white px-8 py-4 rounded-lg hover:bg-white hover:text-black transition"
+      > 
+        Our Services
+      </Link>
+
+    </div>
+  </div>
 
 </section>
 
